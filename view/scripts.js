@@ -54,7 +54,7 @@ registerSubmit.addEventListener('click', (e)=>{
 adSubmit.addEventListener('click', (e)=>{
     e.preventDefault()
     // TODO filter should be some variable, that stores clicked category
-    fetch('../controller/controller.php?filter=car')
+    fetch('../controller/controller.php?filter=auto')
     .then(res=>res.json())
     .then(data=>{msgSection.style.display="block"
     loginDiv.style.display='none'
@@ -63,9 +63,13 @@ adSubmit.addEventListener('click', (e)=>{
     // TODO make some for cycle and GUI (grid?)
     msgSection.innerHTML=
     `<div>${data[0].nadpis}</div>
-    <div>${data[0].cena}</div>
+    <div>${data[0].cena} Kč</div>
+    <div><img style="width: 200px;" src='${data[0].hlavni_fotografie}'></div>
+    <div>${data[0].mesto}</div>
     <div>${data[1].nadpis}</div>
-    <div>${data[1].cena}</div>`
+    <div>${data[1].cena} Kč</div>
+    <div><img style="width: 200px;" src='${data[1].hlavni_fotografie}'></div>
+    <div>${data[1].mesto}</div>`
     console.log(data)
 })
 })

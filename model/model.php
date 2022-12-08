@@ -37,11 +37,11 @@ function get_users()
 /**
  * Select unsold ads
  */
-function get_ads()
+function get_ads($category)
 {
-    // TODO add fotografie and mesto (uzivatele -> JOIN)
-    // TODO where kategorie=...
     global $conn;
-    $result = $conn->query("SELECT nadpis, cena FROM inzerat WHERE prodano = 0");
+    $result = $conn->query("SELECT nadpis, cena, hlavni_fotografie, mesto 
+                            FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
+                            WHERE prodano = 0 AND kategorie='$category'");
     return $result;
 }

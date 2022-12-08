@@ -31,8 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
 // Filter ad by category
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filter'])) {
-    if($_GET['filter'] == 'car'){
-        $get_ads = get_ads();
+    if($_GET['filter'] == 'auto'){
+        $category = $_GET['filter'];
+        $get_ads = get_ads($category);
         while($r = mysqli_fetch_assoc($get_ads)){
             $rows[] = $r;
         }
