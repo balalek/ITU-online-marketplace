@@ -1,6 +1,16 @@
 <?php
 require '../model/model.php';
 
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = $_POST['heslo'];
+    $user = login($email, $password);
+    if($user) {
+        $_SESSION['ID'] = $user;
+        echo json_encode(['id_uzivatele' => $_SESSION['ID']]);
+    } else echo json_encode(['id_uzivatele' => '-1']);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $_SESSION['ID'] = 1;
     $id = $_SESSION['ID'];
@@ -40,3 +50,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filter'])) {
         echo json_encode($rows);
     }
 }
+

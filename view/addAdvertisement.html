@@ -2,59 +2,141 @@
 <html>
     <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="addAdStyles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        
         <section>
-            <div><div style="margin: 50px auto; width:750px;">
-                <h1>Vytvoření nového inzerátu</h1>
-                <form class="add-ad-form" enctype="multipart/form-data">
-                    <div>
-                    <label for="typ">Kategorie</label>
-                    <select class="form-control form-control-sm" id="typ" name="typ" required>
-                        <option value="">Vyber kategorii</option>
-                        <option value="motoristika">Motoristika</option>
-                        <option value="zvirata">Zvířata</option>
-                        <option value="elektronika">Elektronika</option>
-                        <option value="sport">Sport</option>
-                        <option value="obleceni">Oblečení</option>
-                        <option value="nemovitosti">Nemovitosti</option>
-                        <option value="hudba">Hudba</option>
-                        <option value="detsky_bazar">Dětský bazar</option>
-                    </select>
-                    <div class="subcategory">
-                    <label for="subcategory"></label>
-                    <select class="form-control form-control-sm" id="typ" name="typ" required>
-                    </select>
-                    </div>
-
-                    </div>
-                    <div style="margin: 10px 0px 0px 0px;">
-                    <label for="jmeno">Jméno zvířete</label>
-                    <input class="form-control" type="text" placeholder="Zadej jméno" id ="jmeno" name="jmeno" maxlength="40" required>
-                    </div>
-                    <div style="margin: 10px 0px 0px 0px;">
-                    <label for="vek">Věk zvířete</label>
-                    <input class=form-control type="number" placeholder="Zadej věk" id="vek" name="vek" required>
-                    </div>
-                    <div class="form-group" style="margin: 10px 0px 0px 0px;">
-                        <label for="exampleFormControlFile1">Přidat obrázek zvířete</label>
-                        <input type="file" id="exampleFormControlFile1" name="fotka" required>
-                    </div>
-                    <div class="form-group" style="margin: 10px 0px 0px 0px;">
-                        <label for="exampleFormControlTextarea1">Informace o zvířeti</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="popis" placeholder="Zadej informace o zvířeti: kde bylo zvíře nalezeno, informace o jeho zdraví..." maxlength="1000" required></textarea>
-                    </div>
+            <div>
+                <div id="main">
                     <center>
-                    <button  style="margin: 10px 0px 0px 0px;" type="submit" name ="pridat" class="btn btn-primary" onclick="return checkAge();">Přidat</button>
+                    <h1>Vytvoření nového inzerátu</h1>
                     </center>
+                    <form class="add-ad-form" enctype="multipart/form-data">
+                        <fieldset class="form-group p-3">
+                            <center>
+                                <legend class="w-auto px-2">Základní údaje</legend>
+                            </center>
+                            <div id="spacing">
+                                <label for="type">Kategorie</label>
+                                <select class="form-control form-control-sm" id="type" name="type" required>
+                                    <option value="">Vyber kategorii</option>
+                                    <option value="motoristika">Motoristika</option>
+                                    <option value="zvirata">Zvířata</option>
+                                    <option value="elektronika">Elektronika</option>
+                                    <option value="sport">Sport</option>
+                                    <option value="obleceni">Oblečení</option>
+                                    <option value="nemovitosti">Nemovitosti</option>
+                                    <option value="hudba">Hudba</option>
+                                    <option value="detsky_bazar">Dětský bazar</option>
+                                </select>
+                            </div>
+                            <div class="subcategory" id="spacing">
+                                <label for="subtype">Podkategorie</label>
+                                <select class="form-control form-control-sm" id="subtype" name="subtype" required>
+                                    <option value="">Vyber podkategorii</option>
+                                </select>
+                            </div>
+                            <div id="spacing">
+                                <label for="headline">Nadpis inzerátu</label>
+                                <input class="form-control" type="text" placeholder="Zadej nadpis" id ="headline" name="headline" maxlength="200" required>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group p-3">
+                            <center>
+                                <legend class="w-auto px-2">Podrobnější informace</legend>
+                            </center>
+                            <div class="form-group" id="spacing">
+                                <label for="descr">Informace o inzerátu</label>
+                                <textarea class="form-control" id="descr" rows="6" name="descr" placeholder="Zadej důležité informace o inzerátu" maxlength="2000" required></textarea>
+                            </div>
+                            <div id="spacing">
+                                <label for="price">Cena</label>
+                                <div id="next-to">
+                                    <input class=form-control type="number" placeholder="Zadej cenu" id="price" name="price" required> 
+                                    <h3>Kč</h3>
+                                </div>
+                            </div>
+                            <div id="spacing">
+                                <label for="tags">Tagy</label>
+                                <input class="form-control" type="text" placeholder="Zadej klíčová slova, odděluj čárkou" id ="tags" name="tags" maxlength="150" required>
+                            </div>
+                            <div class="form-group" id="spacing">
+                                <label for="dateTo">Platnost inzerátu do</label><br>
+                                <input type="date" class="form-control" id="dateTo" name="dateTo" required>
+                            </div>
+                            <!--Image-->
+                            <div id="spacing">
+                                <label for="mainPhoto">Přidat hlavní obrázek inzerátu</label>
+                                <div class="mb-4 d-flex justify-content-center">
+                                    <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
+                                    alt="example placeholder" style="width: 300px;" />
+                                </div>
+                                <div class="d-flex justify-content-center" id="spacing-mid">
+                                    <div class="btn btn-primary btn-rounded">
+                                        <label class="form-label text-white m-1" for="mainPhoto">Choose file</label>
+                                        <input type="file" class="form-control d-none" id="mainPhoto" />
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group p-3">
+                            <center>
+                                <legend class="w-auto px-2">Kontaktní údaje</legend>
+                            </center>
+                            <div id="spacing">
+                                <label for="name">Jméno</label>
+                                <input class="form-control" type="text" placeholder="Zadej jméno" id ="name" name="name" maxlength="25" required>
+                            </div>
+                            <div id="spacing">
+                                <label for="lastname">Příjmení</label>
+                                <input class="form-control" type="text" placeholder="Zadej příjmení" id ="lastname" name="lastname" maxlength="25" required>
+                            </div>
+                            <div id="spacing">
+                                <label for="phone">Telefonní číslo</label>
+                                <input class=form-control type="number" placeholder="Zadej telefonní číslo" id="phone" name="phone" required> 
+                            </div>
+                            <div id="spacing">
+                                <label for="shire">Kraj</label>
+                                <select class="form-control form-control-sm" id="shire" name="shire" required>
+                                    <option value="">Vyber Kraj svého bydliště</option>
+                                    <option value="Praha">Praha</option>
+                                    <option value="Středočeský kraj">Středočeský kraj</option>
+                                    <option value="Jihočeský kraj">Jihočeský kraj</option>
+                                    <option value="Plzeňský kraj">Plzeňský kraj</option>
+                                    <option value="Karlovarský kraj">Karlovarský kraj</option>
+                                    <option value="Ústecký kraj">Ústecký kraj</option>
+                                    <option value="Liberecký kraj">Liberecký kraj</option>
+                                    <option value="Královéhradecký kraj">Královéhradecký kraj</option>
+                                    <option value="Pardubický kraj">Pardubický kraj</option>
+                                    <option value="Kraj Vysočina">Kraj Vysočina</option>
+                                    <option value="Jihomoravský kraj">Jihomoravský kraj</option>
+                                    <option value="Zlínský kraj">Zlínský kraj</option>
+                                    <option value="Olomoucký kraj">Olomoucký kraj</option>
+                                    <option value="Moravskoslezský kraj">Moravskoslezský kraj</option>
+                                </select>
+                            </div>
+                            <div id="spacing">
+                                <label for="city">Město</label>
+                                <input class="form-control" type="text" placeholder="Zadej své bydliště" id ="city" name="city" maxlength="100" required>
+                            </div>
+                            <div id="spacing">
+                                <input type="checkbox" id="remember" name="remember">
+                                <strong>Zapamatovat si kontaktní údaje</strong>
+                            </div>
+                        </fieldset>
+                        <center>
+                            <div id="spacing">
+                                <button type="submit" name ="createAd" class="btn btn-primary" onclick="return checkAge();">Vytvořit inzerát</button>
+                            </div>
+                        </center>
                     </form>
-                </div></div>
+                </div>
+            </div>
         </section>
+        <script src="addAdScripts.js"></script>
     </body>
 </html>

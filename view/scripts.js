@@ -1,19 +1,26 @@
-const login = document.querySelector('.login')
+/*const login = document.querySelector('.login')
 const register = document.querySelector('.register')
 const loginDiv = document.querySelector('.login-section')
 const registerDiv = document.querySelector('.register-section')
 const registerForm = document.querySelector('.register-form')
 const loginForm = document.querySelector('.login-form')
 const loginSubmit = document.querySelector('.login-submit')
-const registerSubmit = document.querySelector('.register-submit')
+const registerSubmit = document.querySelector('.register-submit')*/
 const msgSection = document.querySelector('.message-section')
 const adSection = document.querySelector('.advertisement-section')
-const ad = document.querySelector('.advertisement')
+//const ad = document.querySelector('.advertisement')
 const adSubmit = document.querySelector('.advertisement-submit')
 const adForm = document.querySelector('.advertisement-form')
+const loginSubmit = document.getElementById('login-submit')
+const loginForm = document.querySelector('.login-form')
+const login = document.querySelector('.login')
+const logout = document.querySelector('.logout')
+const addAdSubmit = document.querySelector('.addAd')
+
+var session = -1
 
 // Hide or Show, depend on clicked navigation bar
-login.addEventListener('click', ()=>{
+/*login.addEventListener('click', ()=>{
 adSection.style.display='none'
 loginDiv.style.display='block'
 registerDiv.style.display="none"
@@ -30,25 +37,26 @@ ad.addEventListener('click', ()=>{
     loginDiv.style.display='none'
     registerDiv.style.display="none"
     msgSection.style.display="none"
-})
+})*/
 
 // Button events
-registerSubmit.addEventListener('click', (e)=>{
+/*registerSubmit.addEventListener('click', (e)=>{
     e.preventDefault()
     fetch('../controller/controller.php', {
         method:'POST',
         body:new FormData(registerForm)
     })
     .then(res=>res.json())
-    .then(data=>{msgSection.style.display="block"
-    loginDiv.style.display='none'
-    registerDiv.style.display="none"
-    adSection.style.display='none'
-    msgSection.innerHTML=
-    `<div>${data[1].jmeno}</div>`
-    console.log(data)
+    .then(data=>{
+        msgSection.style.display="block"
+        //loginDiv.style.display='none'
+        //registerDiv.style.display="none"
+        adSection.style.display='none'
+        msgSection.innerHTML=
+        `<div>${data[1].jmeno}</div>`
+        console.log(data)
     })   
-})
+})*/
 
 // GET method, show ads that arent sold out yet
 adSubmit.addEventListener('click', (e)=>{
@@ -56,22 +64,51 @@ adSubmit.addEventListener('click', (e)=>{
     // TODO filter should be some variable, that stores clicked category
     fetch('../controller/controller.php?filter=auto')
     .then(res=>res.json())
-    .then(data=>{msgSection.style.display="block"
-    loginDiv.style.display='none'
-    registerDiv.style.display="none"
-    adSection.style.display='none'
-    // TODO make some for cycle and GUI (grid?)
-    msgSection.innerHTML=
-    `<div>${data[0].nadpis}</div>
-    <div>${data[0].cena} Kč</div>
-    <div><img style="width: 200px;" src='${data[0].hlavni_fotografie}'></div>
-    <div>${data[0].mesto}</div>
-    <div>${data[1].nadpis}</div>
-    <div>${data[1].cena} Kč</div>
-    <div><img style="width: 200px;" src='${data[1].hlavni_fotografie}'></div>
-    <div>${data[1].mesto}</div>`
-    console.log(data)
+    .then(data=>{
+        msgSection.style.display="block"
+        //adSection.style.display='none'
+        // TODO make some for cycle and GUI (grid?)
+        msgSection.innerHTML=
+        `<div>${data[0].nadpis}</div>
+        <div>${data[0].cena} Kč</div>
+        <div><img style="width: 200px;" src='${data[0].hlavni_fotografie}'></div>
+        <div>${data[0].mesto}</div>
+        <div>${data[1].nadpis}</div>
+        <div>${data[1].cena} Kč</div>
+        <div><img style="width: 200px;" src='${data[1].hlavni_fotografie}'></div>
+        <div>${data[1].mesto}</div>`
+        console.log(data)
+    })
 })
+
+// POST method, login 
+loginSubmit.addEventListener('click', (e)=>{
+    e.preventDefault()
+    const formData = new FormData(loginForm)
+    fetch('../controller/controller.php', {
+        method:'POST',
+        body:formData
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        msgSection.style.display="block"
+        session = data.id_uzivatele
+        if(session > 0) {
+            msgSection.innerHTML=`<div>${data.id_uzivatele}</div>`
+            login.style.display="none"
+            logout.style.display="block"
+
+        } else {
+            alert("Špatný email nebo heslo")
+        }
+    })
+})
+
+// Relocate to addAd page
+addAdSubmit.addEventListener('click', (e) =>{
+    e.preventDefault()
+    if(session > 0) location.href = "addAdvertisement.html"
+    else alert("Vytvořit inzerát lze až po přihlášení")
 })
 
 

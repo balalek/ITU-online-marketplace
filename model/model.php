@@ -1,6 +1,15 @@
 <?php
 require 'db.php';
 
+function login($email, $password)
+{
+    global $conn;
+    $result = $conn->query("SELECT id_uzivatele FROM uzivatel WHERE email = '$email' AND heslo = '$password' ");
+    if ($result->num_rows == 1){
+        return $result->fetch_column(0);
+    } else return false;
+}
+
 function user_form($id, $first_name, $last_name)
 {
     global $conn;
