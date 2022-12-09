@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        
+        <section>
+            <div><div style="margin: 50px auto; width:750px;">
+                <h1>Vytvoření nového inzerátu</h1>
+                <form class="add-ad-form" enctype="multipart/form-data">
+                    <div>
+                    <label for="typ">Kategorie</label>
+                    <select class="form-control form-control-sm" id="typ" name="typ" required>
+                        <option value="">Vyber kategorii</option>
+                        <option value="motoristika">Motoristika</option>
+                        <option value="zvirata">Zvířata</option>
+                        <option value="elektronika">Elektronika</option>
+                        <option value="sport">Sport</option>
+                        <option value="obleceni">Oblečení</option>
+                        <option value="nemovitosti">Nemovitosti</option>
+                        <option value="hudba">Hudba</option>
+                        <option value="detsky_bazar">Dětský bazar</option>
+                    </select>
+                    <div class="subcategory">
+                    <label for="subcategory"></label>
+                    <select class="form-control form-control-sm" id="typ" name="typ" required>
+                    </select>
+                    </div>
+
+                    </div>
+                    <div style="margin: 10px 0px 0px 0px;">
+                    <label for="jmeno">Jméno zvířete</label>
+                    <input class="form-control" type="text" placeholder="Zadej jméno" id ="jmeno" name="jmeno" maxlength="40" required>
+                    </div>
+                    <div style="margin: 10px 0px 0px 0px;">
+                    <label for="vek">Věk zvířete</label>
+                    <input class=form-control type="number" placeholder="Zadej věk" id="vek" name="vek" required>
+                    </div>
+                    <div class="form-group" style="margin: 10px 0px 0px 0px;">
+                        <label for="exampleFormControlFile1">Přidat obrázek zvířete</label>
+                        <input type="file" id="exampleFormControlFile1" name="fotka" required>
+                    </div>
+                    <div class="form-group" style="margin: 10px 0px 0px 0px;">
+                        <label for="exampleFormControlTextarea1">Informace o zvířeti</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="popis" placeholder="Zadej informace o zvířeti: kde bylo zvíře nalezeno, informace o jeho zdraví..." maxlength="1000" required></textarea>
+                    </div>
+                    <center>
+                    <button  style="margin: 10px 0px 0px 0px;" type="submit" name ="pridat" class="btn btn-primary" onclick="return checkAge();">Přidat</button>
+                    </center>
+                    </form>
+                </div></div>
+        </section>
+    </body>
+</html>
