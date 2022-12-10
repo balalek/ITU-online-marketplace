@@ -42,13 +42,3 @@ categorySelect.addEventListener('change', ()=>{
         subcategoryDiv.style.display='none'
     }
 })
-
-
-
-
-
-
-
-/*<label for="subcategory"></label>
-<select class="form-control form-control-sm" id="typ" name="typ" required>
-</select>*/

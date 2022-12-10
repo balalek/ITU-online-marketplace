@@ -1,28 +1,32 @@
-#navigation {
-    display:block;
-}
-#navigation > div {
-    display: grid;
-    grid-template-columns: 15% 40% 30% 15%;
-}
-#search{
-    width:85%;
-}
-/*Delete, if need for search button*/
-#hiddenSearch{
+.subcategory {
     display: none;
 }
-.addAd{
-    display: grid;
-    justify-content: center;
+#next-to{
+    display: flex;
 }
-.navbar .dropdown-menu .form-control {
-    width: 250px;
+#spacing{
+    margin: 20px 0px 0px 0px;
 }
-.message-section,
-.logout{
+#spacing-mid{
+    margin: 20px 0px 0px 100px;
+}
+#main{
+    margin: 50px auto; width:750px;
+}
+#price,
+#dateTo,
+#phone,
+#shire{
+    width:min-content;
+}
+#mainPhoto{
     display: none;
 }
-.advertisement-section{
-    display: block;
+h1{
+    margin: 0 0 50px 0;
+}
+h3{
+    margin-top: 3px !important;
+    margin-bottom: 0 !important;
+    margin-left: 5px;
 }

@@ -1,14 +1,64 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="addAdStyles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="navigationBar.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="cookies.js"></script>
     </head>
-    <body>
+    <body onload="checkCookie()">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="navigation">
+            <div class="content">
+              <div class="logo">
+                <a class="navbar-brand" href="index.html">OnlineBazar</a>
+              </div>
+              <div class="search">
+                <form class="form-inline my-2 my-lg-0" style="margin: 0 auto;">
+                  <input class="form-control mr-sm-2" id="search" type="search" placeholder="Hledat" aria-label="Search">
+                  <button id ="hiddenSearch" class="btn btn-outline-success my-2 my-sm-0" type="submit">Hledat</button>
+                </form>
+              </div>
+              <div class="addAd">
+                <form class="form-inline my-2 my-lg-0" style="margin: 0 auto;">
+                  <button id="addAd" name="addAd" class="btn btn-outline-success" type="submit">Přidat inzerát</button>
+                </form>
+              </div>
+              <div class="logout">
+                <button id="logout-submit" name="logout-submit" class="btn btn-outline-secondary" type="submit">Odhlásit se</button>
+              </div>
+              <div class="profile">
+                <button id="profile-submit" name="profile-submit" class="btn btn-outline-secondary" type="submit">Můj profil</button>
+              </div>
+              <div class="login">
+                <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+                  <li class="dropdown order-1">
+                      <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Přihlásit se<span class="caret"></span></button>
+                      <ul class="dropdown-menu dropdown-menu-right mt-1">
+                        <li class="p-3">
+                              <form class="login-form" role="form">
+                                  <div class="form-group">
+                                      <input id="emailInput" name="email" placeholder="E-mail" class="form-control form-control-sm" type="text" required="">
+                                  </div>
+                                  <div class="form-group">
+                                      <input id="passwordInput" name="heslo" placeholder="Heslo" class="form-control form-control-sm" type="password" required="">
+                                  </div>
+                                  <input type="hidden" name="login" value="login" />
+                                  <div class="form-group">
+                                      <button type="submit" class="btn btn-primary btn-block" id="login-submit">Přihlásit se</button>
+                                  </div>
+                                  <div class="form-group text-xs-center">
+                                      <small><a href="#">Zapomenuté heslo?</a></small>
+                                  </div>
+                              </form>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+              </div>
+            </div>
+        </nav>
         <section>
             <div>
                 <div id="main">
@@ -16,13 +66,13 @@
                     <h1>Vytvoření nového inzerátu</h1>
                     </center>
                     <form class="add-ad-form" enctype="multipart/form-data">
-                        <fieldset class="form-group p-3">
+                        <fieldset class="form-group border p-3">
                             <center>
                                 <legend class="w-auto px-2">Základní údaje</legend>
                             </center>
                             <div id="spacing">
                                 <label for="type">Kategorie</label>
-                                <select class="form-control form-control-sm" id="type" name="type" required>
+                                <select class="form-control" id="type" name="type" required>
                                     <option value="">Vyber kategorii</option>
                                     <option value="motoristika">Motoristika</option>
                                     <option value="zvirata">Zvířata</option>
@@ -36,7 +86,7 @@
                             </div>
                             <div class="subcategory" id="spacing">
                                 <label for="subtype">Podkategorie</label>
-                                <select class="form-control form-control-sm" id="subtype" name="subtype" required>
+                                <select class="form-control" id="subtype" name="subtype" required>
                                     <option value="">Vyber podkategorii</option>
                                 </select>
                             </div>
@@ -45,7 +95,7 @@
                                 <input class="form-control" type="text" placeholder="Zadej nadpis" id ="headline" name="headline" maxlength="200" required>
                             </div>
                         </fieldset>
-                        <fieldset class="form-group p-3">
+                        <fieldset class="form-group border p-3">
                             <center>
                                 <legend class="w-auto px-2">Podrobnější informace</legend>
                             </center>
@@ -71,11 +121,11 @@
                             <!--Image-->
                             <div id="spacing">
                                 <label for="mainPhoto">Přidat hlavní obrázek inzerátu</label>
-                                <div class="mb-4 d-flex justify-content-center">
+                                <div class="mb-4 d-block justify-content-center">
                                     <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
                                     alt="example placeholder" style="width: 300px;" />
                                 </div>
-                                <div class="d-flex justify-content-center" id="spacing-mid">
+                                <div class="d-block justify-content-center" id="spacing-mid">
                                     <div class="btn btn-primary btn-rounded">
                                         <label class="form-label text-white m-1" for="mainPhoto">Choose file</label>
                                         <input type="file" class="form-control d-none" id="mainPhoto" />
@@ -83,7 +133,7 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <fieldset class="form-group p-3">
+                        <fieldset class="form-group border p-3">
                             <center>
                                 <legend class="w-auto px-2">Kontaktní údaje</legend>
                             </center>
@@ -101,7 +151,7 @@
                             </div>
                             <div id="spacing">
                                 <label for="shire">Kraj</label>
-                                <select class="form-control form-control-sm" id="shire" name="shire" required>
+                                <select class="form-control" id="shire" name="shire" required>
                                     <option value="">Vyber Kraj svého bydliště</option>
                                     <option value="Praha">Praha</option>
                                     <option value="Středočeský kraj">Středočeský kraj</option>
@@ -130,13 +180,18 @@
                         </fieldset>
                         <center>
                             <div id="spacing">
-                                <button type="submit" name ="createAd" class="btn btn-primary" onclick="return checkAge();">Vytvořit inzerát</button>
+                                <button type="submit" name ="createAd" class="btn btn-primary">Vytvořit inzerát</button>
                             </div>
                         </center>
                     </form>
                 </div>
             </div>
         </section>
+        <!--Javascripts, don´t delete-->  
         <script src="addAdScripts.js"></script>
+        <script src="signedUser.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

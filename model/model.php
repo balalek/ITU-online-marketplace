@@ -1,6 +1,9 @@
 <?php
 require 'db.php';
 
+/**
+ * Function, that finds if user exists and return false or his ID
+ */
 function login($email, $password)
 {
     global $conn;
@@ -10,6 +13,21 @@ function login($email, $password)
     } else return false;
 }
 
+/**
+ * Select unsold ads
+ */
+function get_ads($category)
+{
+    global $conn;
+    $result = $conn->query("SELECT nadpis, cena, hlavni_fotografie, mesto 
+                            FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
+                            WHERE prodano = 0 AND kategorie='$category'");
+    return $result;
+}
+
+/**
+ * Example function for using UPDATE // TODO delete this
+ */
 function user_form($id, $first_name, $last_name)
 {
     global $conn;
@@ -26,6 +44,7 @@ function user_form($id, $first_name, $last_name)
     return $status;
 }
 
+// TODO delete this
 function get_users()
 {
     global $conn;
@@ -41,16 +60,4 @@ function get_users()
     } else {
         $status = -1;
     }*/
-}
-
-/**
- * Select unsold ads
- */
-function get_ads($category)
-{
-    global $conn;
-    $result = $conn->query("SELECT nadpis, cena, hlavni_fotografie, mesto 
-                            FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
-                            WHERE prodano = 0 AND kategorie='$category'");
-    return $result;
 }

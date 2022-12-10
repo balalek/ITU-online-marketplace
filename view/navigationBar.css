@@ -1,0 +1,29 @@
+#navigation {
+    display:block;
+}
+#navigation > div {
+    display: grid;
+    grid-template-columns: 15% 40% 25% 10% 10%;
+}
+#search{
+    width:85%;
+}
+/*Delete, if need for search button*/
+#hiddenSearch{
+    display: none;
+}
+.addAd{
+    display: grid;
+    justify-content: center;
+}
+.navbar .dropdown-menu .form-control {
+    width: 250px;
+}
+.message-section,
+.logout,
+.profile{
+    display: none;
+}
+.advertisement-section{
+    display: block;
+}
