@@ -64,3 +64,12 @@ addAdSubmit.addEventListener('click', (e) =>{
     }
     else alert("Vytvořit inzerát lze až po přihlášení")
 })
+
+profileSubmit.addEventListener('click', (e)=>{
+    e.preventDefault()
+    if(getCookie("id") > 0) {
+        location.href = "profile.html"
+        //addAdvertisement.style.display="none"
+    }
+    else alert("Vytvořit inzerát lze až po přihlášení")
+})

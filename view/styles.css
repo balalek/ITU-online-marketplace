@@ -19,14 +19,33 @@
 #shire{
     width:min-content;
 }
-#mainPhoto{
+#mainPhoto,
+.createdAdSection,
+.myAdvertisements,
+.editMyAdvertisement{
     display: none;
 }
 h1{
-    margin: 0 0 50px 0;
+    margin: 50px 0 50px 0 !important;
 }
 h3{
     margin-top: 3px !important;
     margin-bottom: 0 !important;
     margin-left: 5px;
+}
+#profileContent > div{
+    display:grid;
+    grid-template-columns: 50% 50% ;
+    justify-content: center;
+    align-items: center;
+}
+#myAds{
+    width: 200px;
+}
+.myAdsDiv,
+#myProfilePictureDiv{
+    margin: 0 auto;
+}
+.rounded-circle{
+    width: 200px;
 }

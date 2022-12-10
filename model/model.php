@@ -25,6 +25,49 @@ function get_ads($category)
     return $result;
 }
 
+function profile_picture($pic, $id)
+{
+    // Where the file is going to be stored
+    $target_dir = "../img/";
+    $path = pathinfo($pic);
+    $filename = $path['filename'];
+    $ext = $path['extension'];
+    $temp_name = $_FILES['profilePhoto']['tmp_name'];
+    $path_filename_ext = $target_dir.$filename.".".$ext;
+        
+    // Check if file already exists
+    for($i = 0; $i<1000; $i++){
+        // If no, then change its name
+        if (file_exists($path_filename_ext)) $path_filename_ext = $target_dir.$filename.$i.".".$ext;
+        else{
+            // Success upload
+            move_uploaded_file($temp_name,$path_filename_ext);
+            chmod("$path_filename_ext", 0775);
+            /*$fotka = $path_filename_ext;
+            $deleted = 1;*/
+            break;
+        }
+    }
+
+    //$sql = "INSERT INTO uzivatel (evidoval, druh, jmeno, vek, fotografie, popis) VALUES ('$id', '$type', '$name', '$age', '$path_filename_ext', '$info')";
+    global $conn;
+    $sql = "UPDATE uzivatel SET profilovka='$path_filename_ext' WHERE id_uzivatele='$id'";
+    //query the database
+    if ($conn->query($sql) === TRUE) {
+        return $path_filename_ext;
+    } else {
+        return -1;
+    }
+}
+
+function get_profile_pic($id)
+{
+    global $conn;
+    $result = $conn->query("SELECT profilovka FROM uzivatel WHERE id_uzivatele='$id'");
+    if ($result->num_rows == 1){
+        return $result->fetch_column(0);
+    } else return false;
+}
 /**
  * Example function for using UPDATE // TODO delete this
  */

@@ -59,12 +59,12 @@
               </div>
             </div>
         </nav>
-        <section>
+        <center>
+            <h1>Vytvoření nového inzerátu</h1>
+        </center>
+        <section class="createAdSection">
             <div>
                 <div id="main">
-                    <center>
-                    <h1>Vytvoření nového inzerátu</h1>
-                    </center>
                     <form class="add-ad-form" enctype="multipart/form-data">
                         <fieldset class="form-group border p-3">
                             <center>
@@ -180,10 +180,24 @@
                         </fieldset>
                         <center>
                             <div id="spacing">
-                                <button type="submit" name ="createAd" class="btn btn-primary">Vytvořit inzerát</button>
+                                <button type="submit" id="createAd" name ="createAd" class="btn btn-primary">Vytvořit inzerát</button>
                             </div>
                         </center>
+                        <input type="hidden" name="create" value="create" />
                     </form>
+                </div>
+            </div>
+        </section>
+        <section class="createdAdSection">
+            <div id="main">
+                <center>
+                    <fieldset class="form-group border p-3">
+                    <legend>
+                        Inzerát byl úspěšně vytvořen
+                    </legend> <br />
+                    <button type="submit" id="backToIndex" name ="backToIndex" class="btn btn-primary">Vrátit se na hlavní stranu</button>
+                </fieldset>
+                </center>
                 </div>
             </div>
         </section>
