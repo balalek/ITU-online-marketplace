@@ -40,16 +40,35 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uziv']))
     echo json_encode($url);
 }
 
-
-
-
-
-
-
-// TODO delete this
+// Create advertisement
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
-    echo json_encode("sup");
+    $id = $_COOKIE['id'];
+    $category = $_POST['type'];
+    $subcategory = $_POST['subtype'];
+    $headline = $_POST['headline'];
+    $description = $_POST['descr'];
+    $price = $_POST['price'];
+    $tags = $_POST['tags'];
+    $date_to = $_POST['dateTo'];
+    $date_today = date("Y-m-d");
+    $main_photo = $_FILES['mainPhoto']['name'];
+    $name = $_POST['name'];
+    $lastname = $_POST['lastname'];
+    $phone_number = $_POST['phone'];
+    $shire = $_POST['shire'];
+    $city = $_POST['city'];
+    if (isset($_POST['remember'])) $remember = '1';
+    else $remember = '0';
+
+    $response = storeAd($id, $category, $subcategory, $headline, $description, $price, $tags, $date_to, $date_today, 
+                        $main_photo, $name, $lastname, $phone_number, $shire, $city, $remember);
+    echo json_encode($response);
    }
+
+
+
+
+   // TODO DELETE'!'!!!
 /*if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $_SESSION['ID'] = 1;
     $id = $_SESSION['ID'];

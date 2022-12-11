@@ -3,7 +3,9 @@
     <head>
     <link rel="stylesheet" href="navigationBar.css">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="cookies.js"></script>
@@ -120,16 +122,33 @@
                             </div>
                             <!--Image-->
                             <div id="spacing">
-                                <label for="mainPhoto">Přidat hlavní obrázek inzerátu</label>
+                                <label for="mainPhoto">Hlavní obrázek inzerátu</label>
                                 <div class="mb-4 d-block justify-content-center">
                                     <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
-                                    alt="example placeholder" style="width: 300px;" />
+                                    id="currentImg" style="width: 300px;" />
                                 </div>
                                 <div class="d-block justify-content-center" id="spacing-mid">
                                     <div class="btn btn-primary btn-rounded">
-                                        <label class="form-label text-white m-1" for="mainPhoto">Choose file</label>
-                                        <input type="file" class="form-control d-none" id="mainPhoto" />
+                                        <label class="form-label text-white m-1" for="mainPhoto">Vybrat fotografii</label>
+                                        <input type="file" class="form-control d-none" name="mainPhoto" id="mainPhoto" />
                                     </div>
+                                </div>
+                            </div>
+                            <!--Images-->
+                            <div class="container">
+                                <fieldset class="form-group">
+                                    <a href="javascript:void(0)" onclick="$('#pro-image').click()">Přidat další fotografie</a>
+                                    <input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control" multiple>
+                                </fieldset>
+                                <div class="preview-images-zone">
+                                    <!--<div class="preview-image preview-show-1">
+                                        <div class="image-cancel" data-no="1">x</div>
+                                        <div class="image-zone"><img id="pro-img-1" src="https://www.codeproject.com/KB/GDI-plus/ImageProcessing2/flip.jpg"></div>
+                                    </div>
+                                    <div class="preview-image preview-show-2">
+                                        <div class="image-cancel" data-no="2">x</div>
+                                        <div class="image-zone"><img id="pro-img-2" src="https://i.stack.imgur.com/WCveg.jpg"></div>
+                                    </div>-->
                                 </div>
                             </div>
                         </fieldset>
@@ -204,6 +223,7 @@
         <!--Javascripts, don´t delete-->  
         <script src="addAdScripts.js"></script>
         <script src="signedUser.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

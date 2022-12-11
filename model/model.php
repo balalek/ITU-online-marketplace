@@ -72,14 +72,58 @@ function get_profile_pic($id)
     } else return null;
 }
 
-
-
-
-
-
-
 /**
- * Example function for using UPDATE // TODO delete this
+ * Store advertisement to database
+ */
+function storeAd($id, $category, $subcategory, $headline, $description, $price, $tags, $date_to, $date_today, 
+                 $main_photo, $name, $lastname, $phone_number, $shire, $city, $remember){
+    // Where the file is going to be stored
+    $target_dir = "../img/";
+    $path = pathinfo($main_photo);
+    $filename = $path['filename'];
+    $ext = $path['extension'];
+    $temp_name = $_FILES['mainPhoto']['tmp_name'];
+    $path_filename_ext = $target_dir.$filename.".".$ext;
+        
+    // Check if file already exists
+    for($i = 0; $i<1000; $i++){
+        // If no, then change its name
+        if (file_exists($path_filename_ext)) $path_filename_ext = $target_dir.$filename.$i.".".$ext;
+        else{
+            // Success upload
+            move_uploaded_file($temp_name,$path_filename_ext);
+            chmod("$path_filename_ext", 0775);
+            break;
+        }
+    }                
+
+    global $conn;
+    $sql = "INSERT INTO inzerat (vytvoril, kategorie, podkategorie, nadpis, popis, cena, tagy, platnost_do, datum_vytvoreni, hlavni_fotografie) 
+            VALUES ('$id', '$category', '$subcategory', '$headline', '$description', '$price', '$tags', '$date_to', '$date_today', '$path_filename_ext')";
+
+    // Query the DB
+    if ($conn->query($sql) === FALSE) return -1;
+
+    if($remember == 1){
+    $result = $conn->query("UPDATE uzivatel 
+                            SET jmeno='$name', prijmeni='$lastname', tel_cislo='$phone_number', kraj='$shire', mesto='$city', pamatovat=1 
+                            WHERE id_uzivatele='$id'");
+    } else {
+    $result = $conn->query("UPDATE uzivatel 
+                        SET jmeno='$name', prijmeni='$lastname', tel_cislo='$phone_number', kraj='$shire', mesto='$city', pamatovat=0 
+                        WHERE id_uzivatele='$id'");
+    }
+    
+    // Query the DB
+    if($result === TRUE) return 1;
+}
+
+
+
+
+// TODO delete this
+/**
+ * Example function for using UPDATE 
  */
 function user_form($id, $first_name, $last_name)
 {

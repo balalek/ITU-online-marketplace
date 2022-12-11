@@ -1,7 +1,11 @@
 const pictureCircle = document.querySelector('.rounded-circle')
-const picture = document.getElementById('test')
 const addPicture = document.getElementById('profilePhoto')
 const pictureForm = document.querySelector('.pictureForm')
+const myAdsSubmit = document.getElementById('myAds')
+const myProfileSection = document.querySelector('.myProfile')
+const myAdSection = document.querySelector('.myAdvertisements')
+const editMyAdSection = document.querySelector('.editMyAdvertisement')
+const backToProfile = document.getElementById('backToProfile')
 
 // Add picture to db and show it
 addPicture.addEventListener('change', (e)=>{
@@ -31,3 +35,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
         console.log(data)
     })
 });
+
+// Show my Ads section
+myAdsSubmit.addEventListener('click', (e)=>{
+    e.preventDefault()
+    myAdSection.style.display='block'
+    myProfileSection.style.display='none'
+    editMyAdSection.style.display='none'
+})
+
+// Show my profile section (back button)
+backToProfile.addEventListener('click', (e)=>{
+    e.preventDefault()
+    myAdSection.style.display='none'
+    myProfileSection.style.display='block'
+    editMyAdSection.style.display='none'
+})
