@@ -8,7 +8,7 @@ const addAdvertisement = document.querySelector('.addAd')
 adSubmit.addEventListener('click', (e)=>{
     e.preventDefault()
     // TODO filter should be some variable, that stores clicked category
-    fetch('../controller/controller.php?filter=auto')
+    fetch('../controller/controller.php?filter=motoristika')
     .then(res=>res.json())
     .then(data=>{
         msgSection.style.display="block"
@@ -26,6 +26,13 @@ adSubmit.addEventListener('click', (e)=>{
         console.log(data)
     })
 })
+
+
+
+
+
+
+
 
 // TODO delete this
 

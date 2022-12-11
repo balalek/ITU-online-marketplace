@@ -25,6 +25,9 @@ function get_ads($category)
     return $result;
 }
 
+/**
+ * Store profile picture to db
+ */
 function profile_picture($pic, $id)
 {
     // Where the file is going to be stored
@@ -43,13 +46,10 @@ function profile_picture($pic, $id)
             // Success upload
             move_uploaded_file($temp_name,$path_filename_ext);
             chmod("$path_filename_ext", 0775);
-            /*$fotka = $path_filename_ext;
-            $deleted = 1;*/
             break;
         }
     }
-
-    //$sql = "INSERT INTO uzivatel (evidoval, druh, jmeno, vek, fotografie, popis) VALUES ('$id', '$type', '$name', '$age', '$path_filename_ext', '$info')";
+    
     global $conn;
     $sql = "UPDATE uzivatel SET profilovka='$path_filename_ext' WHERE id_uzivatele='$id'";
     //query the database
@@ -60,14 +60,24 @@ function profile_picture($pic, $id)
     }
 }
 
+/**
+ * Get profile picture from logged user
+ */
 function get_profile_pic($id)
 {
     global $conn;
     $result = $conn->query("SELECT profilovka FROM uzivatel WHERE id_uzivatele='$id'");
     if ($result->num_rows == 1){
         return $result->fetch_column(0);
-    } else return false;
+    } else return null;
 }
+
+
+
+
+
+
+
 /**
  * Example function for using UPDATE // TODO delete this
  */

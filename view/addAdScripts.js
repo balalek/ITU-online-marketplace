@@ -57,9 +57,6 @@ createAdSubmit.addEventListener('click', (e)=>{
     })
     .then(res=>res.json())
     .then(data=>{
-        //msgSection.style.display="block"
-        //loginDiv.style.display='none'
-        //registerDiv.style.display="none"
         createAdSection.style.display='none'
         createdAdSection.style.display='block'
         //msgSection.innerHTML=

@@ -6,35 +6,28 @@ const pictureForm = document.querySelector('.pictureForm')
 // Add picture to db and show it
 addPicture.addEventListener('change', (e)=>{
     e.preventDefault()
-    /*pictureCircle.src = "../img/empty-profile.png"
-    console.log(addPicture)*/
     fetch('../controller/controller.php', {
         method:'POST',
         body:new FormData(pictureForm)
     })
     .then(res=>res.json())
     .then(data=>{
-        //loginDiv.style.display='none'
-        //registerDiv.style.display="none"
-        //pictureCircle.src = "../img/empty-profile.png"
-        pictureCircle.src = data
+        pictureCircle.style.backgroundImage = `url('${data}')`;
         console.log(data)
     })   
 })
 
-function checkImage()
-{
+// Show user profile picture on page load
+document.addEventListener("DOMContentLoaded", function(event) {
     console.log(getCookie("id"))
     fetch(`../controller/controller.php?id_uziv=${getCookie("id")}`)
     .then(res=>res.json())
     .then(data=>{
-        pictureCircle.src = data
+        if (data == null){
+            pictureCircle.style.backgroundImage = "url('https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg')"
+        } else {
+            pictureCircle.style.backgroundImage = `url('${data}')`;
+        }
         console.log(data)
     })
-}
-
-
-/*function file_changed(file){
-    console.log(file.value)
-    pictureCircle.src = "../img/empty-profile.png"
-}*/
+});

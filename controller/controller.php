@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
 // Filter ad by category
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filter'])) {
-    if($_GET['filter'] == 'auto'){
+    if($_GET['filter'] == 'motoristika'){
         $category = $_GET['filter'];
         $get_ads = get_ads($category);
         while($r = mysqli_fetch_assoc($get_ads)){
@@ -25,11 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filter'])) {
     }
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
- echo json_encode("sup");
-}
-
-
+// Show profile picture on page load
 if(isset($_COOKIE["id"])){
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prof'])) { //$_FILES['profilePhoto']['name']!=""){
         $url = profile_picture($_FILES['profilePhoto']['name'], $_COOKIE["id"]);
@@ -37,13 +33,23 @@ if(isset($_COOKIE["id"])){
     }
 }
 
+// Set profile picture and who it
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uziv']))
 {
     $url = get_profile_pic($_COOKIE["id"]);
     echo json_encode($url);
 }
 
+
+
+
+
+
+
 // TODO delete this
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
+    echo json_encode("sup");
+   }
 /*if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $_SESSION['ID'] = 1;
     $id = $_SESSION['ID'];
