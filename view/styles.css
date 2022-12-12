@@ -48,7 +48,10 @@ h3{
 #myAds{
     width: 200px;
 }
-#backToProfile{
+#backToProfile,
+#backToMyAds,
+#editAd,
+#sellAd{
     width: 100px;
 }
 .myAdsDiv,

@@ -60,16 +60,15 @@ addAdSubmit.addEventListener('click', (e) =>{
     e.preventDefault()
     if(getCookie("id") > 0) {
         location.href = "addAdvertisement.html"
-        //addAdvertisement.style.display="none"
     }
     else alert("Vytvořit inzerát lze až po přihlášení")
 })
 
+// Relocate to profile page
 profileSubmit.addEventListener('click', (e)=>{
     e.preventDefault()
     if(getCookie("id") > 0) {
         location.href = "profile.html"
-        //addAdvertisement.style.display="none"
     }
     else alert("Vytvořit inzerát lze až po přihlášení")
 })

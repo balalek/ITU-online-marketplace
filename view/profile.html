@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="cookies.js"></script>
     </head>
-    <body onload="checkCookie()">
+    <body onload="checkCookie();showMyAds(0);">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="navigation">
             <div class="content">
               <div class="logo">
@@ -101,15 +102,186 @@
                     <div></div>
                 </div>
             </div>
+            <div id="spacing-mid">
+                <h4>Dostupné inzeráty</h4>
+            </div>
+            <section class="unsold">
+                <!--TODO fill this space with unsold Ads using JS -->
+            </section>
+            <div id="spacing-mid">
+                <h4>Prodané inzeráty</h4>
+            </div>
+            <section class="sold">
+                <!-- TODO fill this space with sold Ads using JS -->
+            </section>
         </section>
         <section class="editMyAdvertisement">
-            <center>
-                <h1>Editace inzerátu</h1>
-            </center>
+            <div class="myAdsHeader">
+                <div>
+                    <div class="backToProfileDiv">
+                        <button type="submit" class="btn btn-primary btn-block" name="backToMyAds" id="backToMyAds">Zpět</button>
+                    </div>
+                    <div>
+                        <center>
+                            <h1>Editace inzerátu</h1>
+                        </center>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+            <section class="createAdSection">
+                <div>
+                    <div id="main">
+                        <form class="add-ad-form" enctype="multipart/form-data">
+                            <fieldset class="form-group border p-3">
+                                <center>
+                                    <legend class="w-auto px-2">Základní údaje</legend>
+                                </center>
+                                <div id="spacing">
+                                    <label for="type">Kategorie *</label>
+                                    <select class="form-control" id="type" name="type" required>
+                                        <option value="">Vyber kategorii</option>
+                                        <option value="motoristika">Motoristika</option>
+                                        <option value="zvirata">Zvířata</option>
+                                        <option value="elektronika">Elektronika</option>
+                                        <option value="sport">Sport</option>
+                                        <option value="obleceni">Oblečení</option>
+                                        <option value="nemovitosti">Nemovitosti</option>
+                                        <option value="hudba">Hudba</option>
+                                        <option value="detsky_bazar">Dětský bazar</option>
+                                    </select>
+                                </div>
+                                <div class="subcategory" id="spacing">
+                                    <label for="subtype">Podkategorie *</label>
+                                    <select class="form-control" id="subtype" name="subtype" required>
+                                        <option value="">Vyber podkategorii</option>
+                                    </select>
+                                </div>
+                                <div id="spacing">
+                                    <label for="headline">Nadpis inzerátu *</label>
+                                    <input class="form-control" type="text" placeholder="Zadej nadpis" id ="headline" name="headline" maxlength="200" required>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group border p-3">
+                                <center>
+                                    <legend class="w-auto px-2">Podrobnější informace</legend>
+                                </center>
+                                <div class="form-group" id="spacing">
+                                    <label for="descr">Informace o inzerátu *</label>
+                                    <textarea class="form-control" id="descr" rows="6" name="descr" placeholder="Zadej důležité informace o inzerátu" maxlength="2000" required></textarea>
+                                </div>
+                                <div id="spacing">
+                                    <label for="price">Cena *</label>
+                                    <div id="next-to">
+                                        <input class=form-control type="number" placeholder="Zadej cenu" id="price" name="price" required> 
+                                        <h3>Kč</h3>
+                                    </div>
+                                </div>
+                                <div id="spacing">
+                                    <label for="tags">Tagy *</label>
+                                    <input class="form-control" type="text" placeholder="Zadej klíčová slova, odděluj čárkou" id ="tags" name="tags" maxlength="150" required>
+                                </div>
+                                <div class="form-group" id="spacing">
+                                    <label for="dateTo">Platnost inzerátu do *</label><br>
+                                    <input type="date" class="form-control" id="dateTo" name="dateTo" required>
+                                </div>
+                                <!--Image-->
+                                <div id="spacing">
+                                    <label for="mainPhoto">Hlavní obrázek inzerátu *</label>
+                                    <div class="mb-4 d-block justify-content-center">
+                                        <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
+                                        id="currentImg" style="width: 300px;" />
+                                    </div>
+                                    <div class="d-block justify-content-center" id="spacing-mid">
+                                        <div class="btn btn-primary btn-rounded">
+                                            <label class="form-label text-white m-1" for="mainPhoto">Vybrat fotografii</label>
+                                            <input type="file" class="form-control d-none" name="mainPhoto" id="mainPhoto" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Images-->
+                                <div class="container">
+                                    <fieldset class="form-group">
+                                        <a href="javascript:void(0)" onclick="$('#pro-image').click()">Přidat další fotografie (volitelné)</a>
+                                        <input type="file" id="pro-image" name="pro-image" style="display: none;" class="form-control" multiple>
+                                    </fieldset>
+                                    <div class="preview-images-zone">
+                                        <div class="preview-image preview-show-1">
+                                            <div class="image-cancel" data-no="1">x</div>
+                                            <div class="image-zone"><img id="pro-img-1" src="../img/inside.jpg"></div>
+                                        </div>
+                                        <div class="preview-image preview-show-2">
+                                            <div class="image-cancel" data-no="2">x</div>
+                                            <div class="image-zone"><img id="pro-img-2" src="../img/lights.jpg"></div>
+                                        </div>
+                                        <div class="preview-image preview-show-3">
+                                            <div class="image-cancel" data-no="3">x</div>
+                                            <div class="image-zone"><img id="pro-img-3" src="../img/tachometr.webp"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group border p-3">
+                                <center>
+                                    <legend class="w-auto px-2">Kontaktní údaje</legend>
+                                </center>
+                                <div id="spacing">
+                                    <label for="name">Jméno *</label>
+                                    <input class="form-control" type="text" placeholder="Zadej jméno" id ="name" name="name" maxlength="25" required>
+                                </div>
+                                <div id="spacing">
+                                    <label for="lastname">Příjmení *</label>
+                                    <input class="form-control" type="text" placeholder="Zadej příjmení" id ="lastname" name="lastname" maxlength="25" required>
+                                </div>
+                                <div id="spacing">
+                                    <label for="phone">Telefonní číslo *</label>
+                                    <input class=form-control type="number" placeholder="Zadej telefonní číslo" id="phone" name="phone" required> 
+                                </div>
+                                <div id="spacing">
+                                    <label for="shire">Kraj *</label>
+                                    <select class="form-control" id="shire" name="shire" required>
+                                        <option value="">Vyber Kraj svého bydliště</option>
+                                        <option value="Praha">Praha</option>
+                                        <option value="Středočeský kraj">Středočeský kraj</option>
+                                        <option value="Jihočeský kraj">Jihočeský kraj</option>
+                                        <option value="Plzeňský kraj">Plzeňský kraj</option>
+                                        <option value="Karlovarský kraj">Karlovarský kraj</option>
+                                        <option value="Ústecký kraj">Ústecký kraj</option>
+                                        <option value="Liberecký kraj">Liberecký kraj</option>
+                                        <option value="Královéhradecký kraj">Královéhradecký kraj</option>
+                                        <option value="Pardubický kraj">Pardubický kraj</option>
+                                        <option value="Kraj Vysočina">Kraj Vysočina</option>
+                                        <option value="Jihomoravský kraj">Jihomoravský kraj</option>
+                                        <option value="Zlínský kraj">Zlínský kraj</option>
+                                        <option value="Olomoucký kraj">Olomoucký kraj</option>
+                                        <option value="Moravskoslezský kraj">Moravskoslezský kraj</option>
+                                    </select>
+                                </div>
+                                <div id="spacing">
+                                    <label for="city">Město *</label>
+                                    <input class="form-control" type="text" placeholder="Zadej své bydliště" id ="city" name="city" maxlength="100" required>
+                                </div>
+                                <div id="spacing">
+                                    <input type="checkbox" id="remember" name="remember">
+                                    <strong>Zapamatovat si kontaktní údaje</strong>
+                                </div>
+                            </fieldset>
+                            <center>
+                                <div id="spacing">
+                                    <button type="submit" id="updateAd" name ="updateAd" class="btn btn-primary">Uložit</button>
+                                </div>
+                            </center>
+                            <input type="hidden" name="update" value="update" />
+                            <input type="hidden" id="id_inzeratu" name="id_inzeratu" />
+                        </form>
+                    </div>
+                </div>
+            </section>
         </section>
         <!--Javascripts, don´t delete-->  
         <script src="profile.js"></script>
         <script src="signedUser.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

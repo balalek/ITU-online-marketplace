@@ -49,12 +49,10 @@ function getCookie(cname) {
 function checkCookie() {
     let user = getCookie("id");
     if (user != "") {
-        //alert("Welcome again " + user);
         login.style.display="none"
         logout.style.display="block"
         profile.style.display="block"
     } else {
-        //user = prompt("Please enter your name:","");
         if (user != "" && user != null) {
             setCookie("id", user, 30);
         }

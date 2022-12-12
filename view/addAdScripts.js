@@ -17,6 +17,12 @@ const createdAdSection = document.querySelector('.createdAdSection')
 const backToIndexSubmit = document.getElementById('backToIndex')
 const currentImg = document.getElementById('currentImg')
 const currentImgSubmit = document.getElementById('mainPhoto')
+const firstname = document.getElementById('name')
+const lastname = document.getElementById('lastname')
+const phone = document.getElementById('phone')
+const shire = document.getElementById('shire')
+const city = document.getElementById('city')
+const remember = document.getElementById('remember')
 
 const urlStore = [];
 
@@ -55,7 +61,6 @@ categorySelect.addEventListener('change', ()=>{
 // Store advertisement to database a show if it completed succesfully
 createAdSubmit.addEventListener('click', (e)=>{
     e.preventDefault()
-    //$(this).unbind('createAdSubmit').submit()
     fetch('../controller/controller.php', {
         method:'POST',
         body:new FormData(advertisementForm)
@@ -81,9 +86,7 @@ backToIndexSubmit.addEventListener('click', (e) =>{
 // Cancel picture view
 $(document).ready(function() {
     document.getElementById('pro-image').addEventListener('change', readImage, false);
-    
     //$( ".preview-images-zone" ).sortable();
-    
     $(document).on('click', '.image-cancel', function() {
         let no = $(this).data('no');
         $(".preview-image.preview-show-"+no).remove();
@@ -91,7 +94,7 @@ $(document).ready(function() {
 });
 
 var num = 1;
-// Show images and store them
+// Show multiple images
 function readImage() {
     if (window.File && window.FileList && window.FileReader) {
         var files = event.target.files; //FileList object
@@ -140,3 +143,20 @@ currentImgSubmit.addEventListener('change', (e)=>{
         picReader.readAsDataURL(file);
     }
 })
+
+// If remember was previously checked, then fill contacts
+function checkContacts(){
+    fetch(`../controller/controller.php?id_uzivatele=${getCookie("id")}`)
+    .then(res=>res.json())
+    .then(data=>{
+        if (data[0].pamatovat != 0){
+            firstname.value = data[0].jmeno
+            lastname.value = data[0].prijmeni
+            phone.value = data[0].tel_cislo
+            shire.value = data[0].kraj
+            city.value = data[0].mesto
+            remember.checked = data[0].pamatovat
+        }
+        
+    })
+}
