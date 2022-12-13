@@ -40,7 +40,7 @@ adSubmit.addEventListener('click', (e)=>{
     const params = new URLSearchParams({});
     params.append("regions",reg);
     params.append("pricefrom", pricefrom.value);
-    params.append("priceto", pricefrom.value);
+    params.append("priceto", priceto.value);
     // todo: save category filter
     params.append("filter", "motoristika");
     console.log(params.toString());

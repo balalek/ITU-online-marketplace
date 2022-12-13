@@ -146,3 +146,39 @@ h3{
 .container {
     padding-top: 50px;
 }
+/* start index */
+/*#categories-section1,
+#categories-section2{
+    display:grid !important;
+    grid-template-columns: 15% 15% 15% 15% 15% 15%;
+    justify-content: center;
+    align-items: center;
+}
+#categories-section1 > div > button,
+#categories-section2 > div > button{
+    width: 100%;
+}
+#categories-section2 > div > button{
+    margin-top: 15px;
+}*/
+#pricefrom{
+    margin-bottom: 10px;
+}
+/* end index */
+
+.full{
+    color: #ffcc00;
+}
+.popup{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.full{
+    color: #ffcc00;
+}
+.popup{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}

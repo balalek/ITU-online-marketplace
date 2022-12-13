@@ -26,7 +26,7 @@ function login($email, $password)
 }
 
 /**
- * @author Martin Balaz
+ * @author Richard Blazo
  * Select unsold ads (main page)
  */
 function get_ads($category, $pricefrom, $priceto, $regions)

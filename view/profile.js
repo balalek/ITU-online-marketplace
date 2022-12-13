@@ -23,6 +23,9 @@ const soldAdsSection  = document.querySelector('.sold')
 const editAdSubmit = document.getElementById('editAd')
 const sellAdSubmit = document.getElementById('sellAd')
 const deleteAdSubmit = document.getElementById('deleteAd')
+const reviewForm = document.querySelector('.review-form')
+const review = document.getElementById("review")
+const modal = document.getElementById("modal");
 
 // Consts for edit advertisements
 const subcategoryDiv = document.querySelector('.subcategory')
@@ -74,6 +77,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     })
 });
+
+// Function to show popup window with user reviews
+function showReviews()
+{
+    modal.style.display = "block";
+    // TODO fix
+    fetch(`../controller/controller.php?id_uziv_rec=${getCookie("id")}`, {
+        method:'POST',
+        body:new FormData(reviewForm)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        console.log(data)
+    })
+}
+
+// Close reviews after click cross
+function closeReviews()
+{
+    modal.style.display = "none";
+}
 
 // Show my Ads section
 myAdsSubmit.addEventListener('click', (e)=>{
