@@ -40,6 +40,10 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uziv']))
     echo json_encode($url);
 }
 
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_uziv_rec']))
+{
+    echo json_encode("review");
+}
 // Create advertisement
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
     $id = $_COOKIE['id'];

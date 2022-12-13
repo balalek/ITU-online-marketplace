@@ -137,3 +137,19 @@ h3{
 .container {
     padding-top: 50px;
 }
+.full{
+    color: #ffcc00;
+}
+.popup{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.full{
+    color: #ffcc00;
+}
+.popup{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
