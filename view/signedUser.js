@@ -47,7 +47,6 @@ logoutSubmit.addEventListener('click', (e)=>{
     logout.style.display="none"
     profile.style.display="none"
     // Wherever you are, after clicking logout, you will go to index.html
-    // TODO maybe this isnt the case for viewing other user ads page
     var path = window.location.pathname;
     var page = path.split("/").pop();
     if(page != "index.html"){

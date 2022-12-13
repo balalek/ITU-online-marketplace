@@ -212,6 +212,21 @@ function showEdit(idInzeratu){
         console.log(idInzeratu)
         IDInzeratu.value = idInzeratu
         categorySelect.value = data[0].kategorie
+        if(categorySelect.value == "motoristika"){
+            // subcategories for "motoristika" category
+            const langArray = ["auta", "motorky", "zemědělské stroje", "kola,disky,pneu", "příslušenství"]
+            // Append options to subcategory select
+            index = 0
+            for(element in langArray){
+                var opt = document.createElement("option")
+                opt.value = langArray[element]
+                opt.innerHTML = langArray[element]
+
+                subcategorySelect.appendChild(opt)
+                index++
+            } 
+        // TODO else if, add subcategories to more categories
+        }
         console.log(data[0].podkategorie)
         subcategorySelect.value = data[0].podkategorie
         headline.value = data[0].nadpis

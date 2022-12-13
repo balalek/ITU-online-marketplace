@@ -139,7 +139,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uziv_rec']))
 
 /**
  * @author Martin Balaz
- * Create advertisement TODO region
+ * Create advertisement
  */
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
     $id = $_COOKIE['id'];
@@ -194,35 +194,3 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
                         $main_photo, $name, $lastname, $phone_number, $shire, $city, $remember);
     echo json_encode($response);
 }
-
-
-
-
-   // TODO DELETE'!'!!!
-/*if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-    $_SESSION['ID'] = 1;
-    $id = $_SESSION['ID'];
-    $name = $_POST['name'];
-    $last_name = $_POST['lastname'];
-    $verification_code = user_form($id, $name, $last_name);
-    $get_users = get_users();
-    $rows = array();
-    //retrieve and print every record
-    while($r = mysqli_fetch_assoc($get_users)){
-        //$rows[] = array('user' => $r); // with the superfluous data attribute
-        $rows[] = $r;
-    }
-
-    if ($verification_code === -1)
-        echo json_encode(['status' => 'Something went wrong. Try again later!!']);
-    else {
-        /*foreach($get_users as $row){
-            echo json_encode(['status' => 'zkouska', 'name' => $row["jmeno"], 'lastname' => $row["prijmeni"]]);
-        }*/
-        //echo json_encode(['status' => 'zkouska', 'name' => $get_users["jmeno"], 'lastname' => $get_users["prijmeni"]]);
-        /*echo json_encode($rows); //THIS IS CORRECT */
-        //echo json_encode(['status' => 'Thanks for Registring with Us. Your account will be activated once you verify your email', 'name' => $verification_code]);
-        //echo json_encode(['name' => $verification_code]);
-    /*}
-    exit();
-}*/
