@@ -1,10 +1,10 @@
 # ITU - Online bazar
 # Instalace
 ### Softwarové požadavky:
-PHP Version: 8.1.12
-mysqli library version: 5.7.40
-Apache/2.4.54
-MySQL version: 8.0.31
+PHP Version: 8.1.12,
+mysqli library version: 5.7.40,
+Apache/2.4.54,
+MySQL version: 8.0.31,
 phpMyAdmin version: 5.1.1
 ### Postup instalace na server:
 #### Nastavení webového serveru Apache:
