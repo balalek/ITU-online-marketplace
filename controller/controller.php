@@ -26,6 +26,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     } else echo json_encode(['id_uzivatele' => '-1']);
 }
 
+/**
+ * @author Martin Balaz
+ * Show edit form to selected unsold advertisement
+ */
+if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['idInzeratu'])) {
+    $idInzeratu = $_GET['idInzeratu'];
+    $adData = get_ad_data($idInzeratu);
+    while($r = mysqli_fetch_assoc($adData)){
+        $rows[] = $r;
+    }
+    echo json_encode($rows);
+}
 
 /**
  * @author Martin Balaz
