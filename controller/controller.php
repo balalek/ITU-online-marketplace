@@ -110,7 +110,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uzivatele']))
  * @author Petr Kolarik
  * Show user reviews
  */
-if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_uziv_rec']))
+if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uziv_rec']))
 {
     echo json_encode("review");
 }

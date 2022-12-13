@@ -83,10 +83,7 @@ function showReviews()
 {
     modal.style.display = "block";
     // TODO fix
-    fetch(`../controller/controller.php?id_uziv_rec=${getCookie("id")}`, {
-        method:'POST',
-        body:new FormData(reviewForm)
-    })
+    fetch(`../controller/controller.php?id_uziv_rec=${getCookie("id")}`)
     .then(res=>res.json())
     .then(data=>{
         console.log(data)
