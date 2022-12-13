@@ -26,31 +26,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     } else echo json_encode(['id_uzivatele' => '-1']);
 }
 
-/**
- * @author Martin Balaz
- * Show edit form to selected unsold advertisement
- */
-if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['idInzeratu'])) {
-    $idInzeratu = $_GET['idInzeratu'];
-    $adData = get_ad_data($idInzeratu);
-    while($r = mysqli_fetch_assoc($adData)){
-        $rows[] = $r;
-    }
-    echo json_encode($rows);
-}
 
 /**
  * @author Martin Balaz
  * Filter ad by category
  */
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['filter'])) {
-    if($_GET['filter'] == 'motoristika'){
-        $category = $_GET['filter'];
-        $get_ads = get_ads($category);
-        while($r = mysqli_fetch_assoc($get_ads)){
-            $rows[] = $r;
-        }
-        echo json_encode($rows);
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && (isset($_GET['filter']) || isset($_GET['pricefrom']))) {
+    extract($_GET);
+    $get_ads = get_ads($filter, $pricefrom, $priceto, $regions);
+    
+    while($r = mysqli_fetch_assoc($get_ads)){
+        $rows[] = $r;
+    }
+    if(isset($rows)){
+    echo json_encode($rows);
+    }
+    else
+    {
+        echo json_encode(null);
     }
 }
 

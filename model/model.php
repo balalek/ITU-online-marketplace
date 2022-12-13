@@ -29,12 +29,37 @@ function login($email, $password)
  * @author Martin Balaz
  * Select unsold ads (main page)
  */
-function get_ads($category)
+function get_ads($category, $pricefrom, $priceto, $regions)
 {
     global $conn;
-    $result = $conn->query("SELECT id_inzeratu, nadpis, cena, hlavni_fotografie, mesto 
-                            FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
-                            WHERE prodano = 0 AND kategorie='$category'");
+    $init_query = "SELECT id_inzeratu, nadpis, cena, hlavni_fotografie, mesto
+                    FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
+                    WHERE prodano = 0";
+    if($category != "")
+    {
+        $init_query .= " AND kategorie='$category'";
+    }
+    if($pricefrom != "")
+    {
+        $init_query .= " AND cena>='$pricefrom'";
+    };
+    if($priceto != "")
+    {
+        $init_query .= " AND cena<='$priceto'";
+    }
+    if($regions != "")
+    {
+        $array = explode(',', $regions);
+        $value = $array[0];
+        $init_query .= " AND ( region='$value'";
+        for($i = 1; $i < count($array); $i++)
+        {
+            $newval = $array[$i];
+            $init_query .= " OR region='$newval'";
+        }
+        $init_query .= ")";
+    }
+    $result = $conn->query($init_query);
     return $result;
 }
 
