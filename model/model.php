@@ -273,6 +273,42 @@ function get_ad_data($id_inzeratu)
     return $result;
 }
 
+/**
+ * @author Martin Balaz
+ * Delete an advertisement
+ */
+function deleteAd($idAdvertisement)
+{
+    global $conn;
+    // Find an old photo to delete from img folder
+    $result = $conn->query("SELECT hlavni_fotografie FROM inzerat WHERE id_inzeratu ='$idAdvertisement'");
+    if(mysqli_num_rows($result) != 0){
+        $photoAdvertisement = $result->fetch_column(0);
+        unlink($photoAdvertisement);
+    }
+    
+    $sql = "DELETE FROM inzerat WHERE id_inzeratu = '$idAdvertisement'";
+
+    //query the database
+    if ($conn->query($sql) === TRUE) return 1;
+    else return -1;
+}
+
+/**
+ * @author Martin Balaz
+ * Move an advertisement to sold section
+ */
+function moveAd($idAdvertisement)
+{
+    global $conn;
+    $sql = "UPDATE inzerat SET prodano=1 WHERE id_inzeratu='$idAdvertisement'";
+
+    //query the database
+    if ($conn->query($sql) === TRUE) return 1;
+    else return -1;
+}
+
+
 // TODO delete this
 /**
  * Example function for using UPDATE 

@@ -126,33 +126,76 @@ function showMyAds(onEdit)
     fetch(`../controller/controller.php?userAds=${getCookie("id")}`)
     .then(res=>res.json())
     .then(data=>{
-        // TODO GUI (grid?)
         // After edit "refresh"
         if(onEdit){
             soldAdsSection.innerHTML = ``
             unsoldAdsSection.innerHTML = ``
         }
+        var soldString = `<div id="gridSold">`
+        var unsoldString = `<div id="gridUnsold">`
+        var hiddenOrSeen // String, that i will put to innerHTML, once its finished
         for(var i = 0; i < data.length; i++){
+            // Because of length, i want cards to have same height
+            if(data[i].nadpis.length > 30) hiddenOrSeen = `"display: none;"`
+            else hiddenOrSeen = `"display: block;"`
+            // Show sold cards in sold section
             if(data[i].prodano == 1){
-                soldAdsSection.innerHTML +=
-                `<div>${data[i].nadpis}</div>
-                <div>${data[i].cena} Kč</div>
-                <div><img style="width: 200px;" src='${data[i].hlavni_fotografie}'></div>
-                <div>${data[i].mesto}</div>`
+                soldString +=
+                `<div class="gridBackground">
+                    <div><img style="width: 250px; height:150px;" src='${data[i].hlavni_fotografie}'></div>
+                    <div id="bold">${data[i].nadpis}</div>
+                    <div style=${hiddenOrSeen}><br /></div>
+                    <div id="gridInfo">
+                        <div id="money">${data[i].cena} Kč</div>
+                        <div id="place">${data[i].mesto}</div>
+                    </div>
+                </div>`
+            // Show sold cards in unsold section
             }else if(data[i].prodano == 0){
-                //console.log(data[i].id_inzeratu)
-                unsoldAdsSection.innerHTML +=
-                `<div>${data[i].nadpis}</div>
-                <div>${data[i].cena} Kč</div>
-                <div><img style="width: 200px;" src='${data[i].hlavni_fotografie}'></div>
-                <div>${data[i].mesto}</div>
-                <button type="submit" class="btn btn-primary btn-block" name="editAd" id="editAd" onclick="showEdit(${data[i].id_inzeratu})">Editovat</button>
-                <button type="submit" class="btn btn-primary btn-block" name="sellAd" id="sellAd">Prodat</button>
-                <button type="submit" class="btn btn-primary btn-block" name="deleteAd" id="deleteAd">Odstranit</button>`
+                unsoldString +=
+                `<div class="gridBackground">
+                    <div id="cont">
+                        <img style="width: 250px; height:150px;" src='${data[i].hlavni_fotografie}'>
+                        <input type="image" src="../img/trash.ico" name="deleteAd" id="deleteAd" onclick="destroyAd(${data[i].id_inzeratu})" />
+                    </div>
+                    <div id="bold">${data[i].nadpis}</div>
+                    <div style=${hiddenOrSeen}><br /></div>
+                    <div id="gridInfo">
+                        <div id="money">${data[i].cena} Kč</div>
+                        <div id="place">${data[i].mesto}</div>
+                    </div>
+                    <div id="gridButton">
+                        <button type="submit" class="btn btn-primary btn-block" name="editAd" id="editAd" onclick="showEdit(${data[i].id_inzeratu})">Editovat</button>
+                        <button type="submit" class="btn btn-primary btn-block" name="sellAd" id="sellAd" onclick="sellAd(${data[i].id_inzeratu})">Prodat</button>
+                    </div>
+                </div>`
             }
         }
+        soldString += `</div>`
+        unsoldString += `</div>`
+        soldAdsSection.innerHTML = soldString
+        unsoldAdsSection.innerHTML = unsoldString
     })
-    
+}
+
+// Function that delete selected advertisement
+function destroyAd(idInzeratu)
+{
+    fetch(`../controller/controller.php?deleteInzerat=${idInzeratu}`)
+    .then(res=>res.json())
+    .then(data=>{
+        if(data) showMyAds(0);
+    })
+}
+
+// Function that will put unsold advertisement to sold section
+function sellAd(idInzeratu)
+{
+    fetch(`../controller/controller.php?moveInzerat=${idInzeratu}`)
+    .then(res=>res.json())
+    .then(data=>{
+        if(data) showMyAds(0);
+    })
 }
 
 // Function that show data for selected advertisement

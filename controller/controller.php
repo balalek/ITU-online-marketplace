@@ -41,6 +41,28 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['idInzeratu'])) {
 
 /**
  * @author Martin Balaz
+ * Delete a selected advertisement
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['deleteInzerat'])) 
+{
+    $idAdvertisement = $_GET['deleteInzerat'];
+    $response = deleteAd($idAdvertisement);
+    echo json_encode($response);
+}
+
+/**
+ * @author Martin Balaz
+ * Move a selected advertisement to sold section
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['moveInzerat'])) 
+{
+    $idAdvertisement = $_GET['moveInzerat'];
+    $response = moveAd($idAdvertisement);
+    echo json_encode($response);
+}
+
+/**
+ * @author Richard Blazo
  * Filter ad by category
  */
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && (isset($_GET['filter']) || isset($_GET['pricefrom']))) {
@@ -117,7 +139,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uziv_rec']))
 
 /**
  * @author Martin Balaz
- * Create advertisement
+ * Create advertisement TODO region
  */
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
     $id = $_COOKIE['id'];
