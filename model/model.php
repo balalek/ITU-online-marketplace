@@ -29,15 +29,23 @@ function login($email, $password)
  * @author Richard Blazo
  * Select unsold ads (main page)
  */
-function get_ads($category, $pricefrom, $priceto, $regions)
+function get_ads($categories, $pricefrom, $priceto, $regions, $search)
 {
     global $conn;
     $init_query = "SELECT id_inzeratu, nadpis, cena, hlavni_fotografie, mesto
                     FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
                     WHERE prodano = 0";
-    if($category != "")
+    if($categories != "")
     {
-        $init_query .= " AND kategorie='$category'";
+        $catarray = explode(',', $categories);
+        $catvalue = $catarray[0];
+        $init_query .= " AND ( kategorie='$catvalue'";
+        for($i = 1; $i < count($catarray); $i++)
+        {
+            $newcatval = $catarray[$i];
+            $init_query .= " OR kategorie='$newcatval'";
+        }
+        $init_query .= ")";
     }
     if($pricefrom != "")
     {
@@ -51,15 +59,32 @@ function get_ads($category, $pricefrom, $priceto, $regions)
     {
         $array = explode(',', $regions);
         $value = $array[0];
-        $init_query .= " AND ( region='$value'";
+        $init_query .= " AND ( kraj='$value'";
         for($i = 1; $i < count($array); $i++)
         {
             $newval = $array[$i];
-            $init_query .= " OR region='$newval'";
+            $init_query .= " OR kraj='$newval'";
         }
         $init_query .= ")";
     }
+    if($search != "")
+    {
+        $init_query .= " AND (podkategorie LIKE '%$search%' OR mesto LIKE '%$search%' OR nadpis LIKE '%$search%' OR tagy LIKE '%$search%' OR popis LIKE '%$search%')";
+    }
     $result = $conn->query($init_query);
+    return $result;
+}
+
+/**
+ * @author Richard Blazo
+ * Get ad by id.
+ */
+function ad_by_id($id)
+{
+    global $conn;
+    $result = $conn->query("SELECT nadpis, cena, hlavni_fotografie, kraj, mesto, prodano, jmeno, prijmeni, email, tel_cislo, profilovka, popis, datum_vytvoreni, platnost_do
+                            FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
+                            WHERE id_inzeratu='$id'");
     return $result;
 }
 
@@ -273,40 +298,37 @@ function get_ad_data($id_inzeratu)
     return $result;
 }
 
-// TODO delete this
 /**
- * Example function for using UPDATE 
+ * @author Martin Balaz
+ * Delete an advertisement
  */
-function user_form($id, $first_name, $last_name)
+function deleteAd($idAdvertisement)
 {
     global $conn;
-    $sql = "UPDATE uzivatel SET jmeno='$first_name', prijmeni='$last_name' WHERE id_uzivatele='$id'";
-
-    //$rows = $sql->fetch_all(MYSQLI_ASSOC);
-    //query the database
-    if ($conn->query($sql) === TRUE) {
-        $status = 1;
-        //$rows = $sql->fetch_all(MYSQLI_ASSOC);
-    } else {
-        $status = -1;
+    // Find an old photo to delete from img folder
+    $result = $conn->query("SELECT hlavni_fotografie FROM inzerat WHERE id_inzeratu ='$idAdvertisement'");
+    if(mysqli_num_rows($result) != 0){
+        $photoAdvertisement = $result->fetch_column(0);
+        unlink($photoAdvertisement);
     }
-    return $status;
+    
+    $sql = "DELETE FROM inzerat WHERE id_inzeratu = '$idAdvertisement'";
+
+    //query the database
+    if ($conn->query($sql) === TRUE) return 1;
+    else return -1;
 }
 
-// TODO delete this
-function get_users()
+/**
+ * @author Martin Balaz
+ * Move an advertisement to sold section
+ */
+function moveAd($idAdvertisement)
 {
     global $conn;
-    $result = $conn->query("SELECT jmeno, prijmeni FROM uzivatel");
-    //$rows = $result->fetch_all(MYSQLI_ASSOC);
-    //$rows = mysql_fetch_assoc($result);
-    //$rows = mysqli_fetch_field($result);
-    return $result;
+    $sql = "UPDATE inzerat SET prodano=1 WHERE id_inzeratu='$idAdvertisement'";
+
     //query the database
-    /*if ($conn->query($sql) === TRUE) {
-        $status = 1;
-        //$rows = $sql->fetch_all(MYSQLI_ASSOC);
-    } else {
-        $status = -1;
-    }*/
+    if ($conn->query($sql) === TRUE) return 1;
+    else return -1;
 }

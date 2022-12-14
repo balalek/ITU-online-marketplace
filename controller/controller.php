@@ -41,17 +41,60 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['idInzeratu'])) {
 
 /**
  * @author Martin Balaz
- * Filter ad by category
+ * Delete a selected advertisement
  */
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && (isset($_GET['filter']) || isset($_GET['pricefrom']))) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['deleteInzerat'])) 
+{
+    $idAdvertisement = $_GET['deleteInzerat'];
+    $response = deleteAd($idAdvertisement);
+    echo json_encode($response);
+}
+
+/**
+ * @author Martin Balaz
+ * Move a selected advertisement to sold section
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['moveInzerat'])) 
+{
+    $idAdvertisement = $_GET['moveInzerat'];
+    $response = moveAd($idAdvertisement);
+    echo json_encode($response);
+}
+
+/**
+ * @author Richard Blazo
+ * Filter ads by searchbar input, category, price range and regions.
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && (isset($_GET['filter']) || isset($_GET['pricefrom']) || isset($_GET['priceto']) || isset($_GET['regions']) || isset($_GET['search'])))
+{
     extract($_GET);
-    $get_ads = get_ads($filter, $pricefrom, $priceto, $regions);
+    $get_ads = get_ads($filter, $pricefrom, $priceto, $regions, $search);
     
     while($r = mysqli_fetch_assoc($get_ads)){
         $rows[] = $r;
     }
-    if(isset($rows)){
-    echo json_encode($rows);
+    if(isset($rows))
+    {
+        echo json_encode($rows);
+    }
+    else
+    {
+        echo json_encode(null);
+    }
+}
+
+/**
+ * @author Richard Blazo
+ * Get a specific ad by id
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_ad']))
+{
+    extract($_GET);
+    $get_ad = ad_by_id($id_ad);
+    $r = mysqli_fetch_assoc($get_ad);
+    if(isset($r) && $r != null)
+    {
+        echo json_encode($r);
     }
     else
     {
@@ -172,35 +215,3 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
                         $main_photo, $name, $lastname, $phone_number, $shire, $city, $remember);
     echo json_encode($response);
 }
-
-
-
-
-   // TODO DELETE'!'!!!
-/*if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-    $_SESSION['ID'] = 1;
-    $id = $_SESSION['ID'];
-    $name = $_POST['name'];
-    $last_name = $_POST['lastname'];
-    $verification_code = user_form($id, $name, $last_name);
-    $get_users = get_users();
-    $rows = array();
-    //retrieve and print every record
-    while($r = mysqli_fetch_assoc($get_users)){
-        //$rows[] = array('user' => $r); // with the superfluous data attribute
-        $rows[] = $r;
-    }
-
-    if ($verification_code === -1)
-        echo json_encode(['status' => 'Something went wrong. Try again later!!']);
-    else {
-        /*foreach($get_users as $row){
-            echo json_encode(['status' => 'zkouska', 'name' => $row["jmeno"], 'lastname' => $row["prijmeni"]]);
-        }*/
-        //echo json_encode(['status' => 'zkouska', 'name' => $get_users["jmeno"], 'lastname' => $get_users["prijmeni"]]);
-        /*echo json_encode($rows); //THIS IS CORRECT */
-        //echo json_encode(['status' => 'Thanks for Registring with Us. Your account will be activated once you verify your email', 'name' => $verification_code]);
-        //echo json_encode(['name' => $verification_code]);
-    /*}
-    exit();
-}*/

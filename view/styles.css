@@ -8,7 +8,9 @@
     margin: 20px 0px 0px 0px;
 }
 #spacing-mid{
-    margin: 20px 0px 0px 100px;
+    width: 1600px;
+    /*margin: 20px 0px 0px 100px;*/
+    margin: 0 auto;
 }
 #main{
     margin: 50px auto; width:750px;
@@ -51,7 +53,8 @@ h3{
 #backToProfile,
 #backToMyAds,
 #editAd,
-#sellAd{
+#sellAd,
+#deleteAd{
     width: 100px;
 }
 .myAdsDiv,
@@ -71,11 +74,68 @@ h3{
     background-size: cover;
     background-position: center center;
 }
-
 .categorytext{
     font-size: 1vw;
     text-align: center;
-    
+}
+
+.inztitle{
+    font-size: 2vw;
+    font-weight: bold;
+    text-align: center;
+    background-color:rgb(232, 235, 232);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.inzbody{
+    font-size: 1vw;
+    background-color:rgb(232, 235, 232);
+}
+
+.inzfooter{
+    font-size: 1vw;
+    text-align: right;
+    justify-content: flex-end;
+    background-color:rgb(232, 235, 232);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.inzownertop{
+    background-color:rgb(187, 255, 187);
+}
+.inzownerbody{
+    background-color:rgb(187, 255, 187);
+}
+.inzownerbottom{
+    background-color:rgb(187, 255, 187);
+    border-bottom-left-radius: 10px;
+}
+.inzowner{
+    background-color:rgb(187, 255, 187);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+a{
+    text-decoration:none;
+    color: inherit;
+}
+
+.showAdvanced{
+    max-height: 2000px;
+    overflow: hidden;
+    transition: max-height 0.8s ease;
+}
+
+
+
+.gridNBackground{
+    background-color:rgb(232, 235, 232);
+    border-radius: 10px;
 }
 
 .preview-images-zone {
@@ -142,15 +202,92 @@ h3{
     width: 90px !important;
     height: 90px !important;
 }
-
 .container {
     padding-top: 50px;
 }
+
+/* start my ads */
+#gridUnsold,
+#gridSold{
+    width: 1600px;
+    margin: 0 auto 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: none;
+    gap: 1em;
+    padding: 10px;
+}
+.gridBackground{
+    width: 250px;
+    background-color:rgb(232, 235, 232);
+    border-radius: 10px;
+}
+#gridButton,
+#gridInfo{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+#money{
+    margin: 5px 0 5px 5px;
+    color:rgb(99, 155, 16);
+    font-weight:bold;
+    font-size: medium;
+}
+#place{
+    text-align: right;
+    margin: 5px 5px 5px 0;
+}
+#editAd,
+#sellAd{
+    min-width: 100%;
+    min-height: 50px !important;
+    padding: none !important;
+    margin-top: 0 !important;
+}
+#editAd{
+    /*border-bottom-left-radius: 10px;*/
+    border-radius: 0 0 0 10px;
+}
+#sellAd{
+    /*border-bottom-right-radius: 10px;*/
+    border-radius: 0 0 10px 0;
+    background-color: rgb(223, 145, 1);
+    border-color: rgb(223, 145, 1);
+}
+#deleteAd:hover{
+    border-color: red;
+}
+#cont{
+    position: relative;
+}
+#deleteAd{
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 11%;
+    left: 93%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000;
+}
+#sellAd:hover{
+    background-color: rgb(155, 101, 1);
+    border-color: rgb(155, 101, 1);
+}
+#bold{
+    margin: 5px 5px 5px 5px;
+    font-weight: bold;
+}
+/* end my ads */
+
 /* start index */
 /*#categories-section1,
 #categories-section2{
     display:grid !important;
-    grid-template-columns: 15% 15% 15% 15% 15% 15%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 5px;
     justify-content: center;
     align-items: center;
 }

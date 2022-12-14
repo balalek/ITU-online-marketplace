@@ -112,19 +112,14 @@ function readImage() {
                             '<div class="image-cancel" data-no="' + num + '">x</div>' +
                             '<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result + '"></div>' +
                             '</div>';
-
                 output.append(html);
                 urlStore[num-1] = picFile.result;
                 console.log(urlStore[0]);
                 num = num + 1;
-                
             });
-
             picReader.readAsDataURL(file);
         }
         $("#pro-image").val('');
-    } else {
-        console.log('Browser not support');
     }
 }
 
