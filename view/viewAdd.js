@@ -197,7 +197,7 @@ function showUserInfo(userID, name, lastname)
                 </div>
                 <div class="m-2 d-flex justify-content-center" id="num-of-revs">Počet hodnocení: 4</div>
                 <div class="m-2 d-flex justify-content-center" id="reviews">
-                <button type="submit" class="btn" onclick="evaluateUser(${userID})">Ohodnotit</button>
+                <button type="submit" class="btn btn-primary" onclick="evaluateUser(${userID})">Ohodnotit</button>
                 <div class="modal2" id="modal2">
                     <div class="modal-content">
                         <span class="close2" id="close2" onclick="closeReviews2()">
