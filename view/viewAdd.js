@@ -1,6 +1,22 @@
+/**********************************************************/
+/*                                                        */
+/* File: viewAdd.js                                       */
+/* Authors: Richard Blazo <xblazo00@stud.fit.vutbr.cz>    */
+/*          Martin Balaz <xbalaz15@stud.fit.vutbr.cz>     */
+/* Project: Project for the course ITU - OnlineBazar      */
+/* Description: View file with scripts for advertisement  */
+/*              information, and also info about his user */
+/*                                                        */
+/**********************************************************/
+
 const params = new URLSearchParams(window.location.search);
 const adcontents = document.getElementById("ad-contents");
 const body = document.body;
+const userSection = document.querySelector('.user-content')
+const userName = document.getElementById('userName')
+const backSubmit = document.getElementById('backToAd')
+const unsoldAdsSection = document.querySelector('.unsold')
+const soldAdsSection  = document.querySelector('.sold')
 
 /**
  * @author Richard Blazo
@@ -72,7 +88,7 @@ if(params != null)
                             <div class="row">
                                 <div class="col-8" id="reviewspot"></div>
                                 <div class="col-4" id="ownerinfo">
-                                    <div class="row inzowner">
+                                    <div class="row inzowner" onclick=showUserInfo(${data.id_uzivatele},"${data.jmeno}","${data.prijmeni}")>
                                         <div class="col-7">
                                             <div class="row" style="justify-content: flex-end;" id="realname"></div>
                                             <div class="row" style="justify-content: flex-end;" id="email"></div>
@@ -110,7 +126,6 @@ if(params != null)
                 useravatar.className = "img-thumbnail";
                 document.getElementById("useravatar").appendChild(useravatar);
 
-
                 adcontents.style.maxHeight = adcontents.scrollHeight;
             }
         })
@@ -119,4 +134,65 @@ if(params != null)
     console.log("DONE");
 }
 
+/**
+ * @author Petr Kolarik
+ * Show info about user - page with his Ads, and review him
+ */
+function showUserInfo(userID, name, lastname)
+{
+    adcontents.style.display = 'none';
+    userSection.style.display = 'block';
+    fetch('../controller/controller.php?userAds=' + userID)
+    .then(res=>res.json())
+    .then(data=>{
+        userName.innerHTML = `${name} ${lastname}`
 
+        var soldString = `<div id="gridSold">`
+        var unsoldString = `<div id="gridUnsold">`
+        var hiddenOrSeen // String, that i will put to innerHTML, once its finished
+        for(var i = 0; i < data.length; i++){
+            // Because of length, i want cards to have same height
+            if(data[i].nadpis.length > 30) hiddenOrSeen = `"display: none;"`
+            else hiddenOrSeen = `"display: block;"`
+            // Show sold cards in sold section
+            if(data[i].prodano == 1){
+                soldString +=
+                `<div class="gridBackground">
+                    <div><img style="width: 250px; height:150px;" src='${data[i].hlavni_fotografie}'></div>
+                    <div id="bold">${data[i].nadpis}</div>
+                    <div style=${hiddenOrSeen}><br /></div>
+                    <div id="gridInfo">
+                        <div id="money">${data[i].cena} Kč</div>
+                        <div id="place">${data[i].mesto}</div>
+                    </div>
+                </div>`
+            // Show sold cards in unsold section
+            }else if(data[i].prodano == 0){
+                unsoldString +=
+                `<div class="gridBackground">
+                    <div><img style="width: 250px; height:150px;" src='${data[i].hlavni_fotografie}'></div>
+                    <div id="bold">${data[i].nadpis}</div>
+                    <div style=${hiddenOrSeen}><br /></div>
+                    <div id="gridInfo">
+                        <div id="money">${data[i].cena} Kč</div>
+                        <div id="place">${data[i].mesto}</div>
+                    </div>
+                </div>`
+            }
+        }
+        soldString += `</div>`
+        unsoldString += `</div>`
+        soldAdsSection.innerHTML = soldString
+        unsoldAdsSection.innerHTML = unsoldString
+    })
+}
+
+/**
+ * @author Petr Kolarik
+ * Back button to ad info
+ */
+backSubmit.addEventListener('click', (e)=>{
+    e.preventDefault()
+    adcontents.style.display = 'block';
+    userSection.style.display = 'none';
+})

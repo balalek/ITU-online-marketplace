@@ -33,7 +33,6 @@ const updateAdSubmit = document.getElementById("updateAd")
 const advertisementForm = document.querySelector('.add-ad-form')
 const createAdSection = document.querySelector('.createAdSection')
 const currentImgSubmit = document.getElementById('mainPhoto')
-
 const IDInzeratu = document.getElementById('id_inzeratu')
 const categorySelect = document.getElementById("type")
 const subcategorySelect = document.getElementById("subtype")
@@ -51,6 +50,7 @@ const city = document.getElementById('city')
 const remember = document.getElementById('remember')
 
 const urlStore = [];
+
 
 // Add picture to db and show it
 addPicture.addEventListener('change', (e)=>{
@@ -294,7 +294,10 @@ function showEdit(idInzeratu){
     })   
 }
 
-// !!!!! Edit advertisement section !!!!!! \\
+/**
+ * @author Martin Balaz
+ * // !!!!! Edit advertisement section !!!!!! \\
+ */
 
 // Hide or Show, depend on changed category select
 categorySelect.addEventListener('change', ()=>{

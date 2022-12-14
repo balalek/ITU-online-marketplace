@@ -82,7 +82,7 @@ function get_ads($categories, $pricefrom, $priceto, $regions, $search)
 function ad_by_id($id)
 {
     global $conn;
-    $result = $conn->query("SELECT nadpis, cena, hlavni_fotografie, kraj, mesto, prodano, jmeno, prijmeni, email, tel_cislo, profilovka, popis, datum_vytvoreni, platnost_do
+    $result = $conn->query("SELECT id_uzivatele, nadpis, cena, hlavni_fotografie, kraj, mesto, prodano, jmeno, prijmeni, email, tel_cislo, profilovka, popis, datum_vytvoreni, platnost_do
                             FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
                             WHERE id_inzeratu='$id'");
     return $result;
@@ -112,10 +112,12 @@ function profile_picture($pic, $id)
     // Find an old photo to delete from img folder
     $result = $conn->query("SELECT profilovka FROM uzivatel WHERE id_uzivatele ='$id'");
     if(mysqli_num_rows($result) != 0){
-        $oldPhoto = $result->fetch_column(0);
-        $deleted = 1;
+        if($result->fetch_column(0) != null){
+            $oldPhoto = $result->fetch_column(0);
+            $deleted = 1;
+        }
     }
-
+    
     // Where the file is going to be stored
     $target_dir = "../img/";
     $path = pathinfo($pic);
