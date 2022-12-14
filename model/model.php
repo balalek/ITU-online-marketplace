@@ -368,3 +368,18 @@ function evaluateUser($id_ad, $created, $stars, $content, $date)
     // Query the DB
     if ($conn->query($sql) === TRUE) return 1;
 }
+
+// /**
+//  * @author Petr Kolarik
+//  * Get number of all reviews
+//  */
+// function reviewCount($id_uzivatele)
+// {
+//     global $conn;
+//     $result = $conn->query("SELECT COUNT(*)
+//                             FROM recenze 
+//                             INNER JOIN inzerat ON recenze.na=inzerat.id_inzeratu 
+//                             INNER JOIN uzivatel ON recenze.vytvoril=uzivatel.id_uzivatele
+//                             WHERE inzerat.vytvoril='$id_uzivatele'");
+//     return $result;
+// }

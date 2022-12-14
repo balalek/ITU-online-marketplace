@@ -87,7 +87,43 @@ if(params != null)
                         <div class="col-8 inzbody"></br></div>
                         <div class="col-8 inzfooter">
                             <div class="row">
-                                <div class="col-8" id="reviewspot"></div>
+                                <div class="col-8" id="reviewspot">
+                                    <div id="profileReview" style="background-color: rgb(187, 255, 187);">
+                                        <div class="d-flex justify-content-center" id="stars">
+                                            <label for="stars" style="margin-right: 1%;">Průměrné hodnocení:</label>
+                                            <span class="fa fa-star fa-lg full"></span>
+                                            <span class="fa fa-star fa-lg full"></span>
+                                            <span class="fa fa-star fa-lg full"></span>
+                                            <span class="fa fa-star fa-lg"></span>
+                                            <span class="fa fa-star fa-lg"></span>
+                                        </div>
+                                        <div class="m-2 d-flex justify-content-center" id="num-of-revs">Počet hodnocení: 4</div>
+                                        <div class="m-2 d-flex justify-content-center" id="reviews">
+                                            <button type="submit" class="btn btn-primary" onclick="showReviews()">Zobrazit vše</button>
+                                            <div class="modal" id="modal">
+                                                <div class="modal-content">
+                                                    <div>
+                                                        <label for="filtr" style="margin: 1%;">Seřadit podle:</label>
+                                                        <select name="hodnoceni" id="hodnoceni" style="margin: 1%;">
+                                                            <option value="none" selected disabled hidden>hodnocení</option>
+                                                            <option value="nejlepsi">od nejlepšího</option>
+                                                            <option value="nejhorsi">od nejhoršího</option>
+                                                        </select>
+                                                        <select name="datum" id="datum" style="margin: 1%;">
+                                                            <option value="none" selected disabled hidden>datum</option>
+                                                            <option value="nejlepsi">od nejnovějšího</option>
+                                                            <option value="nejhorsi">od nejstaršího</option>
+                                                        </select>
+                                                        <span class="close" id="close" onclick="closeReviews()">
+                                                            <i class="fa fa-times" aria-hidden="true" style="color: #f00"></i>
+                                                        </span>
+                                                    </div>
+                                                    <span id="block-content"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-4" id="ownerinfo">
                                     <div class="row inzowner" id="showUserInfoSubmit" >
                                         <div class="col-7">
@@ -151,15 +187,16 @@ function showUserInfo(userID, name, lastname)
         userName.innerHTML = `${name} ${lastname}`
         evaluationSection.innerHTML = `
         <div id="profileReview">
-            <div class="d-flex justify-content-center" id="stars">
-                <span class="fa fa-star fa-2x full"></span>
-                <span class="fa fa-star fa-2x full"></span>
-                <span class="fa fa-star fa-2x full"></span>
-                <span class="fa fa-star fa-2x"></span>
-                <span class="fa fa-star fa-2x"></span>
-            </div>
-            <div class="m-2 d-flex justify-content-center" id="reviews">
-                <div class="pr-2" id="num-of-revs">Počet hodnocení: 17</div>
+                <div class="d-flex justify-content-center" id="stars" style="margin-top: 1%">
+                    <label for="stars" style="margin-right: 1%;">Průměrné hodnocení:</label>
+                    <span class="fa fa-star fa-lg full"></span>
+                    <span class="fa fa-star fa-lg full"></span>
+                    <span class="fa fa-star fa-lg full"></span>
+                    <span class="fa fa-star fa-lg"></span>
+                    <span class="fa fa-star fa-lg"></span>
+                </div>
+                <div class="m-2 d-flex justify-content-center" id="num-of-revs">Počet hodnocení: 4</div>
+                <div class="m-2 d-flex justify-content-center" id="reviews">
                 <button type="submit" class="btn" onclick="evaluateUser(${userID})">Ohodnotit</button>
                 <div class="modal" id="modal">
                     <div class="modal-content">
