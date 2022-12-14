@@ -309,6 +309,12 @@ a{
 .full{
     color: #ffcc00;
 }
+.review-form{
+    padding: 50px 50px 50px 50px;
+}
+#EvaluateStars{
+    margin-top: 15px;
+}
 
 .modal{
     display: none;
@@ -365,4 +371,40 @@ td{
 
 .headlineCell{
     text-align: right;
+}
+/* Stars - radio buttons */
+.rate {
+    width: 151px;
+    height: 46px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
 }

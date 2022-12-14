@@ -169,10 +169,28 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uziv_rec']))
 }
 
 /**
+ * @author Petr Kolarik
+ * Evaluate an user
+ */
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['review']))
+{
+    $id_ad = $_POST['adType'];
+    $created = $_POST['evalUser'];
+    $stars = $_POST['rate'];
+    $content = $_POST['descrAd'];
+    $date = date("Y-m-d");
+
+    $result = evaluateUser($id_ad, $created, $stars, $content, $date);
+
+    echo json_encode($result);
+}
+
+/**
  * @author Martin Balaz
  * Create advertisement
  */
-if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) {
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create'])) 
+{
     $id = $_COOKIE['id'];
     $category = $_POST['type'];
     $subcategory = $_POST['subtype'];

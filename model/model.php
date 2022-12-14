@@ -95,7 +95,7 @@ function ad_by_id($id)
 function show_user_ads($id)
 {
     global $conn;
-    $result = $conn->query("SELECT id_inzeratu, nadpis, cena, hlavni_fotografie, mesto, prodano 
+    $result = $conn->query("SELECT id_inzeratu, nadpis, cena, hlavni_fotografie, mesto, prodano, ohodnoceno 
                             FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
                             WHERE id_uzivatele='$id'");
     return $result;
@@ -117,7 +117,7 @@ function profile_picture($pic, $id)
             $deleted = 1;
         }
     }
-    
+
     // Where the file is going to be stored
     $target_dir = "../img/";
     $path = pathinfo($pic);
@@ -348,4 +348,18 @@ function get_reviews_from_user($id_uzivatele)
                             INNER JOIN uzivatel ON recenze.vytvoril=uzivatel.id_uzivatele
                             WHERE inzerat.vytvoril='$id_uzivatele'");
     return $result;
+}
+
+/**
+ * @author Petr Kolarik
+ * Evaluate an user
+ */
+function evaluateUser($id_ad, $created, $stars, $content, $date)
+{
+    global $conn;
+    $sql = "INSERT INTO inzerat (vytvoril, na, pocet_hvezd, popis, datum_vytvoreni) 
+            VALUES ('$created','$id_ad', '$stars', '$content', '$date')";
+
+    // Query the DB
+    if ($conn->query($sql) === TRUE) return 1;
 }

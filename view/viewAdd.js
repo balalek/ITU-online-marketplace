@@ -18,6 +18,8 @@ const backSubmit = document.getElementById('backToAd')
 const unsoldAdsSection = document.querySelector('.unsold')
 const soldAdsSection  = document.querySelector('.sold')
 
+const evaluationSection = document.querySelector('.evaluateUser')
+
 /**
  * @author Richard Blazo
  * Passes the GET parameter ID to controller, which returns content for the page.
@@ -146,7 +148,60 @@ function showUserInfo(userID, name, lastname)
     .then(res=>res.json())
     .then(data=>{
         userName.innerHTML = `${name} ${lastname}`
-
+        evaluationSection.innerHTML = `
+        <div id="profileReview">
+            <div class="d-flex justify-content-center" id="stars">
+                <span class="fa fa-star fa-2x full"></span>
+                <span class="fa fa-star fa-2x full"></span>
+                <span class="fa fa-star fa-2x full"></span>
+                <span class="fa fa-star fa-2x"></span>
+                <span class="fa fa-star fa-2x"></span>
+            </div>
+            <div class="m-2 d-flex justify-content-center" id="reviews">
+                <div class="pr-2" id="num-of-revs">Počet hodnocení: 17</div>
+                <button type="submit" class="btn" onclick="evaluateUser(${userID})">Ohodnotit</button>
+                <div class="modal" id="modal">
+                    <div class="modal-content">
+                        <span class="close" id="close" onclick="closeReviews()">
+                            <i class="fa fa-times" aria-hidden="true" style="color: #f00"></i>
+                        </span>
+                        <form class="review-form" role="form">
+                            <label for="adType"><h4>Hodnocení uživatele: <b>${name} ${lastname}</b></h4></label>
+                            <select class="form-control" id="adType" name="adType" required>
+                                    <option value="">Vyber Inzerát</option>
+                            </select>
+                            <center>
+                                <div class="rate">
+                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <label for="star5" title="text">5 stars</label>
+                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <label for="star4" title="text">4 stars</label>
+                                    <input type="radio" id="star3" name="rate" value="3" />
+                                    <label for="star3" title="text">3 stars</label>
+                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <label for="star2" title="text">2 stars</label>
+                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <label for="star1" title="text">1 star</label>
+                                </div>    
+                            </center>       
+                            <div class="form-group" id="spacing">
+                                <label for="descrAd">Recenze</label>
+                                <textarea class="form-control" id="descrAd" rows="6" name="descrAd" placeholder="Zadej zkušenosti s daným uživatelem" maxlength="2000" required></textarea>
+                            </div>
+                            <center>
+                                <div id="spacing">
+                                    <button type="submit" id="evaluteSubmit" name ="evaluteSubmit" class="btn btn-primary" onclick="evaluateSubmit()" >Ohodnotit uživatele</button>
+                                </div>
+                            </center>
+                            <input type="hidden" name="evalUser" value="${getCookie("id")}" />
+                            <input type="hidden" name="review" value="review" />
+                        </form>
+                        <span id="block-content"></span>
+                    </div>
+                </div>
+            </div>
+        </div>`
+        const adType = document.getElementById('adType')
         var soldString = `<div id="gridSold">`
         var unsoldString = `<div id="gridUnsold">`
         var hiddenOrSeen // Empty line, that i may or may not put to innerHTML, once its finished
@@ -168,6 +223,12 @@ function showUserInfo(userID, name, lastname)
                         </div>
                     </a>
                 </div>`
+                if(data[i].ohodnoceno == 0){
+                    var opt = document.createElement("option")
+                    opt.value = data[i].id_inzeratu
+                    opt.innerHTML = data[i].nadpis
+                    adType.appendChild(opt)
+                }
             // Show sold cards in unsold section
             }else if(data[i].prodano == 0){
                 unsoldString +=
@@ -193,6 +254,25 @@ function showUserInfo(userID, name, lastname)
 
 /**
  * @author Petr Kolarik
+ * Evaluate an user
+ */
+function evaluateSubmit()
+{
+    const evaluateForm = document.querySelector('.review-form')
+    const modal = document.getElementById("modal")
+    fetch('../controller/controller.php', {
+        method:'POST',
+        body:new FormData(evaluateForm)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        console.log("dostal jsem se sem?")
+        modal.style.display='none'        
+    })  
+}
+
+/**
+ * @author Petr Kolarik
  * Back button to ad info
  */
 backSubmit.addEventListener('click', (e)=>{
@@ -200,3 +280,36 @@ backSubmit.addEventListener('click', (e)=>{
     adcontents.style.display = 'block';
     userSection.style.display = 'none';
 })
+
+/**
+ * @author Petr Kolarik
+ * Function to show popup window to evaluate user (if user is signed in, and if that user isn´t same person)
+ */
+function evaluateUser(userID)
+{
+    if(getCookie("id") != "") {
+        if(userID == getCookie("id")) return;
+    } else return;
+    const modal = document.getElementById("modal");
+    modal.style.display = "block";
+}
+
+/**
+ * @author Petr Kolarik
+ * Close reviews after click cross
+ */
+function closeReviews()
+{
+    modal.style.display = "none";
+}
+
+/**
+ * @author Petr Kolarik
+ * Close reviews after clicking outside
+ */
+window.onclick = function(event) {
+    const modal = document.getElementById("modal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+  } 

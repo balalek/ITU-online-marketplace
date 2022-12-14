@@ -145,6 +145,11 @@ window.onclick = function(event) {
     }
   } 
 
+/**
+ * @author Martin Balaz
+ * // !!!!! My advertisement section !!!!!! \\
+ */
+
 // Show my Ads section
 myAdsSubmit.addEventListener('click', (e)=>{
     e.preventDefault()
