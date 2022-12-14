@@ -332,3 +332,18 @@ function moveAd($idAdvertisement)
     if ($conn->query($sql) === TRUE) return 1;
     else return -1;
 }
+
+/**
+ * @author Petr Kolarik
+ * Get all reviews of one user
+ */
+function get_reviews_from_user($id_uzivatele)
+{
+    global $conn;
+    $result = $conn->query("SELECT jmeno, prijmeni, pocet_hvezd, recenze.popis, recenze.datum_vytvoreni, inzerat.nadpis
+                            FROM recenze 
+                            INNER JOIN inzerat ON recenze.na=inzerat.id_inzeratu 
+                            INNER JOIN uzivatel ON recenze.vytvoril=uzivatel.id_uzivatele
+                            WHERE inzerat.vytvoril='$id_uzivatele'");
+    return $result;
+}

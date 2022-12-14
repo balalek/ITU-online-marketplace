@@ -82,12 +82,54 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function showReviews()
 {
     modal.style.display = "block";
-    // TODO fix
+
+    const table = document.createElement("table");
+    const tbody = document.createElement("tbody");
+    const root = document.getElementById("block-content");
+
+    table.setAttribute("class", "reviewTable");
     fetch(`../controller/controller.php?id_uziv_rec=${getCookie("id")}`)
     .then(res=>res.json())
     .then(data=>{
-        console.log(data)
+        if (!data) {
+            return;
+        }
+
+        for (var review of data) {
+            var div = document.createElement("div");
+            div.setAttribute("class", "reviewDiv");
+            var tr1 = document.createElement("tr");
+            var td_jmeno = document.createElement("td");
+            td_jmeno.setAttribute("class", "nameCell");
+            td_jmeno.appendChild(document.createTextNode(review.jmeno + " "));
+            td_jmeno.appendChild(document.createTextNode(review.prijmeni));
+            tr1.appendChild(td_jmeno);
+            var td_popis = document.createElement("td");
+            td_popis.setAttribute("class", "descCell");
+            td_popis.setAttribute("colspan", "2");
+            td_popis.appendChild(document.createTextNode(review.popis));
+            tr1.appendChild(td_popis);
+            div.appendChild(tr1);
+            tbody.appendChild(div);
+
+            var tr2 = document.createElement("tr");
+            var td_pocet_hvezd = document.createElement("td");
+            td_pocet_hvezd.appendChild(document.createTextNode(review.pocet_hvezd));
+            tr2.appendChild(td_pocet_hvezd);
+            var td_datum = document.createElement("td");
+            td_datum.appendChild(document.createTextNode(review.datum_vytvoreni));
+            tr2.appendChild(td_datum);
+            var td_nadpis = document.createElement("td");
+            td_nadpis.setAttribute("class", "headlineCell");
+            td_nadpis.appendChild(document.createTextNode("Inzerát: " + review.nadpis));
+            tr2.appendChild(td_nadpis);
+            div.appendChild(tr2);
+            tbody.appendChild(div);
+        };
+        table.appendChild(tbody);
+        root.appendChild(table);
     })
+    root.replaceChildren('');
 }
 
 // Close reviews after click cross
@@ -95,6 +137,13 @@ function closeReviews()
 {
     modal.style.display = "none";
 }
+
+// Close reviews after clicking outside
+window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  } 
 
 // Show my Ads section
 myAdsSubmit.addEventListener('click', (e)=>{
