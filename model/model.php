@@ -29,15 +29,23 @@ function login($email, $password)
  * @author Richard Blazo
  * Select unsold ads (main page)
  */
-function get_ads($category, $pricefrom, $priceto, $regions)
+function get_ads($categories, $pricefrom, $priceto, $regions, $search)
 {
     global $conn;
     $init_query = "SELECT id_inzeratu, nadpis, cena, hlavni_fotografie, mesto
                     FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
                     WHERE prodano = 0";
-    if($category != "")
+    if($categories != "")
     {
-        $init_query .= " AND kategorie='$category'";
+        $catarray = explode(',', $categories);
+        $catvalue = $catarray[0];
+        $init_query .= " AND ( kategorie='$catvalue'";
+        for($i = 1; $i < count($catarray); $i++)
+        {
+            $newcatval = $catarray[$i];
+            $init_query .= " OR kategorie='$newcatval'";
+        }
+        $init_query .= ")";
     }
     if($pricefrom != "")
     {
@@ -51,15 +59,32 @@ function get_ads($category, $pricefrom, $priceto, $regions)
     {
         $array = explode(',', $regions);
         $value = $array[0];
-        $init_query .= " AND ( region='$value'";
+        $init_query .= " AND ( kraj='$value'";
         for($i = 1; $i < count($array); $i++)
         {
             $newval = $array[$i];
-            $init_query .= " OR region='$newval'";
+            $init_query .= " OR kraj='$newval'";
         }
         $init_query .= ")";
     }
+    if($search != "")
+    {
+        $init_query .= " AND (podkategorie LIKE '%$search%' OR mesto LIKE '%$search%' OR nadpis LIKE '%$search%' OR tagy LIKE '%$search%' OR popis LIKE '%$search%')";
+    }
     $result = $conn->query($init_query);
+    return $result;
+}
+
+/**
+ * @author Richard Blazo
+ * Get ad by id.
+ */
+function ad_by_id($id)
+{
+    global $conn;
+    $result = $conn->query("SELECT nadpis, cena, hlavni_fotografie, kraj, mesto, prodano, jmeno, prijmeni, email, tel_cislo, profilovka, popis, datum_vytvoreni, platnost_do
+                            FROM uzivatel RIGHT JOIN inzerat ON uzivatel.id_uzivatele = inzerat.vytvoril 
+                            WHERE id_inzeratu='$id'");
     return $result;
 }
 

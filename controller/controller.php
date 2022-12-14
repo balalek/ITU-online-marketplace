@@ -63,17 +63,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['moveInzerat']))
 
 /**
  * @author Richard Blazo
- * Filter ad by category
+ * Filter ads by searchbar input, category, price range and regions.
  */
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && (isset($_GET['filter']) || isset($_GET['pricefrom']))) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && (isset($_GET['filter']) || isset($_GET['pricefrom']) || isset($_GET['priceto']) || isset($_GET['regions']) || isset($_GET['search'])))
+{
     extract($_GET);
-    $get_ads = get_ads($filter, $pricefrom, $priceto, $regions);
+    $get_ads = get_ads($filter, $pricefrom, $priceto, $regions, $search);
     
     while($r = mysqli_fetch_assoc($get_ads)){
         $rows[] = $r;
     }
-    if(isset($rows)){
-    echo json_encode($rows);
+    if(isset($rows))
+    {
+        echo json_encode($rows);
+    }
+    else
+    {
+        echo json_encode(null);
+    }
+}
+
+/**
+ * @author Richard Blazo
+ * Get a specific ad by id
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_ad']))
+{
+    extract($_GET);
+    $get_ad = ad_by_id($id_ad);
+    $r = mysqli_fetch_assoc($get_ad);
+    if(isset($r) && $r != null)
+    {
+        echo json_encode($r);
     }
     else
     {

@@ -78,6 +78,66 @@ h3{
     font-size: 1vw;
     text-align: center;
 }
+
+.inztitle{
+    font-size: 2vw;
+    font-weight: bold;
+    text-align: center;
+    background-color:rgb(232, 235, 232);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.inzbody{
+    font-size: 1vw;
+    background-color:rgb(232, 235, 232);
+}
+
+.inzfooter{
+    font-size: 1vw;
+    text-align: right;
+    justify-content: flex-end;
+    background-color:rgb(232, 235, 232);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.inzownertop{
+    background-color:rgb(187, 255, 187);
+}
+.inzownerbody{
+    background-color:rgb(187, 255, 187);
+}
+.inzownerbottom{
+    background-color:rgb(187, 255, 187);
+    border-bottom-left-radius: 10px;
+}
+.inzowner{
+    background-color:rgb(187, 255, 187);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+a{
+    text-decoration:none;
+    color: inherit;
+}
+
+.showAdvanced{
+    max-height: 2000px;
+    overflow: hidden;
+    transition: max-height 0.8s ease;
+}
+
+
+
+.gridNBackground{
+    background-color:rgb(232, 235, 232);
+    border-radius: 10px;
+}
+
 .preview-images-zone {
     width: 100%;
     border: 1px solid #ddd;
