@@ -2,7 +2,7 @@
 /*                                                        */
 /* File: viewAdd.js                                       */
 /* Authors: Richard Blazo <xblazo00@stud.fit.vutbr.cz>    */
-/*          Martin Balaz <xbalaz15@stud.fit.vutbr.cz>     */
+/*          Petr Kolarik <xkolar13@stud.fit.vutbr.cz>     */
 /* Project: Project for the course ITU - OnlineBazar      */
 /* Description: View file with scripts for advertisement  */
 /*              information, and also info about his user */
@@ -149,7 +149,7 @@ function showUserInfo(userID, name, lastname)
 
         var soldString = `<div id="gridSold">`
         var unsoldString = `<div id="gridUnsold">`
-        var hiddenOrSeen // String, that i will put to innerHTML, once its finished
+        var hiddenOrSeen // Empty line, that i may or may not put to innerHTML, once its finished
         for(var i = 0; i < data.length; i++){
             // Because of length, i want cards to have same height
             if(data[i].nadpis.length > 30) hiddenOrSeen = `"display: none;"`
@@ -158,25 +158,29 @@ function showUserInfo(userID, name, lastname)
             if(data[i].prodano == 1){
                 soldString +=
                 `<div class="gridBackground">
-                    <div><img style="width: 250px; height:150px;" src='${data[i].hlavni_fotografie}'></div>
-                    <div id="bold">${data[i].nadpis}</div>
-                    <div style=${hiddenOrSeen}><br /></div>
-                    <div id="gridInfo">
-                        <div id="money">${data[i].cena} Kč</div>
-                        <div id="place">${data[i].mesto}</div>
-                    </div>
+                    <a href="viewAd.html?id=${data[i].id_inzeratu}">
+                        <div><img style="width: 250px; height:150px;" src='${data[i].hlavni_fotografie}'></div>
+                        <div id="bold">${data[i].nadpis}</div>
+                        <div style=${hiddenOrSeen}><br /></div>
+                        <div id="gridInfo">
+                            <div id="money">${data[i].cena} Kč</div>
+                            <div id="place">${data[i].mesto}</div>
+                        </div>
+                    </a>
                 </div>`
             // Show sold cards in unsold section
             }else if(data[i].prodano == 0){
                 unsoldString +=
                 `<div class="gridBackground">
-                    <div><img style="width: 250px; height:150px;" src='${data[i].hlavni_fotografie}'></div>
-                    <div id="bold">${data[i].nadpis}</div>
-                    <div style=${hiddenOrSeen}><br /></div>
-                    <div id="gridInfo">
-                        <div id="money">${data[i].cena} Kč</div>
-                        <div id="place">${data[i].mesto}</div>
-                    </div>
+                    <a href="viewAd.html?id=${data[i].id_inzeratu}">
+                        <div><img style="width: 250px; height:150px;" src='${data[i].hlavni_fotografie}'></div>
+                        <div id="bold">${data[i].nadpis}</div>
+                        <div style=${hiddenOrSeen}><br /></div>
+                        <div id="gridInfo">
+                            <div id="money">${data[i].cena} Kč</div>
+                            <div id="place">${data[i].mesto}</div>
+                        </div>
+                    </a>
                 </div>`
             }
         }
