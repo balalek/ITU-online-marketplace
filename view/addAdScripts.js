@@ -69,8 +69,6 @@ createAdSubmit.addEventListener('click', (e)=>{
     .then(data=>{
         createAdSection.style.display='none'
         createdAdSection.style.display='block'
-        //msgSection.innerHTML=
-        //`<div>${data[1].jmeno}</div>`
         console.log(data)
     })   
 })

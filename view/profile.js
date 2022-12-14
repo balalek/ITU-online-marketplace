@@ -2,6 +2,7 @@
 /*                                                        */
 /* File: profile.js                                       */
 /* Authors: Martin Balaz <xbalaz15@stud.fit.vutbr.cz>     */
+/*          Petr Kolarik  <xkolar79@stud.fit.vutbr.cz>    */
 /* Project: Project for the course ITU - OnlineBazar      */
 /* Description: View file with scripts for my profile,    */
 /*              my advertisements and edit advertisements */
@@ -51,8 +52,10 @@ const remember = document.getElementById('remember')
 
 const urlStore = [];
 
-
-// Add picture to db and show it
+/**
+ * @author Martin Balaz
+ * Add picture to db and show it
+ */
 addPicture.addEventListener('change', (e)=>{
     e.preventDefault()
     fetch('../controller/controller.php', {
@@ -65,7 +68,10 @@ addPicture.addEventListener('change', (e)=>{
     })   
 })
 
-// Show user profile picture on page load
+/**
+ * @author Martin Balaz
+ * Show user profile picture on page load
+ */
 document.addEventListener("DOMContentLoaded", function(event) {
     fetch(`../controller/controller.php?id_uziv=${getCookie("id")}`)
     .then(res=>res.json())
@@ -78,7 +84,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     })
 });
 
-// Function to show popup window with user reviews
+/**
+ * @author Petr Kolarik
+ * Function to show popup window with user reviews
+ */
 function showReviews()
 {
     modal.style.display = "block";
@@ -132,13 +141,19 @@ function showReviews()
     root.replaceChildren('');
 }
 
-// Close reviews after click cross
+/**
+ * @author Petr Kolarik
+ * Close reviews after click cross
+ */
 function closeReviews()
 {
     modal.style.display = "none";
 }
 
-// Close reviews after clicking outside
+/**
+ * @author Petr Kolarik
+ * Close reviews after clicking outside
+ */
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";

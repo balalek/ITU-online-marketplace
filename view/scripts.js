@@ -1,3 +1,12 @@
+/**********************************************************/
+/*                                                        */
+/* File: controller.php                                   */
+/* Authors: Richard Blazo <xblazo00@stud.fit.vutbr.cz>    */
+/* Project: Project for the course ITU - OnlineBazar      */
+/* Description: Controller from MVC architecture          */
+/*                                                        */
+/**********************************************************/
+
 const msgSection = document.querySelector('.message-section');
 const adSection = document.querySelector('.advertisement-section');
 const adSubmit = document.querySelector('.advertisement-submit');

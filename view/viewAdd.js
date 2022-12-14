@@ -17,7 +17,6 @@ const userName = document.getElementById('userName')
 const backSubmit = document.getElementById('backToAd')
 const unsoldAdsSection = document.querySelector('.unsold')
 const soldAdsSection  = document.querySelector('.sold')
-
 const evaluationSection = document.querySelector('.evaluateUser')
 
 /**
@@ -90,7 +89,7 @@ if(params != null)
                             <div class="row">
                                 <div class="col-8" id="reviewspot"></div>
                                 <div class="col-4" id="ownerinfo">
-                                    <div class="row inzowner" onclick=showUserInfo(${data.id_uzivatele},"${data.jmeno}","${data.prijmeni}")>
+                                    <div class="row inzowner" id="showUserInfoSubmit" >
                                         <div class="col-7">
                                             <div class="row" style="justify-content: flex-end;" id="realname"></div>
                                             <div class="row" style="justify-content: flex-end;" id="email"></div>
@@ -106,6 +105,9 @@ if(params != null)
                 </div>
                 `;
                 console.log(data);
+                document.getElementById("showUserInfoSubmit").addEventListener('click', (e)=>{
+                    showUserInfo(data.id_uzivatele, data.jmeno, data.prijmeni)
+                })
                 document.getElementById("inztitle").textContent = data.nadpis;
                 var inzimg = document.createElement('img');
                 inzimg.src = data.hlavni_fotografie;
@@ -131,7 +133,6 @@ if(params != null)
                 adcontents.style.maxHeight = adcontents.scrollHeight;
             }
         })
-        
     }
     console.log("DONE");
 }
@@ -190,7 +191,7 @@ function showUserInfo(userID, name, lastname)
                             </div>
                             <center>
                                 <div id="spacing">
-                                    <button type="submit" id="evaluteSubmit" name ="evaluteSubmit" class="btn btn-primary" onclick="evaluateSubmit()" >Ohodnotit uživatele</button>
+                                    <button type="submit" id="evaluteSubmit" name ="evaluteSubmit" class="btn btn-primary">Ohodnotit uživatele</button>
                                 </div>
                             </center>
                             <input type="hidden" name="evalUser" value="${getCookie("id")}" />
@@ -201,10 +202,19 @@ function showUserInfo(userID, name, lastname)
                 </div>
             </div>
         </div>`
+
+        document.getElementById('evaluteSubmit').addEventListener('click', (e)=>{
+            e.preventDefault()
+            evaluateSubmit()
+        })
         const adType = document.getElementById('adType')
         var soldString = `<div id="gridSold">`
         var unsoldString = `<div id="gridUnsold">`
         var hiddenOrSeen // Empty line, that i may or may not put to innerHTML, once its finished
+        // Remove appended child, if user is changing options a lot, but do not remove "Vyber inzerát"
+        /*while (adType.firstChild && adType.childElementCount > 1) {
+            adType.removeChild(adType.lastChild);
+        }*/
         for(var i = 0; i < data.length; i++){
             // Because of length, i want cards to have same height
             if(data[i].nadpis.length > 30) hiddenOrSeen = `"display: none;"`
@@ -279,6 +289,11 @@ backSubmit.addEventListener('click', (e)=>{
     e.preventDefault()
     adcontents.style.display = 'block';
     userSection.style.display = 'none';
+    // TODO "refresh" select options
+    //showUserInfo(userID, name, lastname)
+    /*while (adType.firstChild && adType.childElementCount > 1) {
+        adType.removeChild(adType.lastChild);
+    }*/
 })
 
 /**
@@ -290,6 +305,7 @@ function evaluateUser(userID)
     if(getCookie("id") != "") {
         if(userID == getCookie("id")) return;
     } else return;
+    console.log("cauko")
     const modal = document.getElementById("modal");
     modal.style.display = "block";
 }
@@ -300,6 +316,7 @@ function evaluateUser(userID)
  */
 function closeReviews()
 {
+    const modal = document.getElementById("modal");
     modal.style.display = "none";
 }
 

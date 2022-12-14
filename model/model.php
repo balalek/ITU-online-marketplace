@@ -357,8 +357,13 @@ function get_reviews_from_user($id_uzivatele)
 function evaluateUser($id_ad, $created, $stars, $content, $date)
 {
     global $conn;
-    $sql = "INSERT INTO inzerat (vytvoril, na, pocet_hvezd, popis, datum_vytvoreni) 
+    $sql = "INSERT INTO recenze (vytvoril, na, pocet_hvezd, popis, datum_vytvoreni) 
             VALUES ('$created','$id_ad', '$stars', '$content', '$date')";
+
+    // Query the DB
+    if ($conn->query($sql) === FALSE) return -1;
+
+    $sql = "UPDATE inzerat SET ohodnoceno=1 WHERE id_inzeratu='$id_ad'";
 
     // Query the DB
     if ($conn->query($sql) === TRUE) return 1;
