@@ -112,7 +112,17 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uzivatele']))
  */
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uziv_rec']))
 {
-    echo json_encode("review");
+    $reviews = get_reviews_from_user($_GET['id_uziv_rec']);
+    while($r = mysqli_fetch_assoc($reviews)){
+        $rows[] = $r;
+    }
+    if(isset($rows)){
+        echo json_encode($rows);
+    }
+    else
+    {
+        echo json_encode(null);
+    }
 }
 
 /**
