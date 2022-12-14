@@ -198,9 +198,9 @@ function showUserInfo(userID, name, lastname)
                 <div class="m-2 d-flex justify-content-center" id="num-of-revs">Počet hodnocení: 4</div>
                 <div class="m-2 d-flex justify-content-center" id="reviews">
                 <button type="submit" class="btn" onclick="evaluateUser(${userID})">Ohodnotit</button>
-                <div class="modal" id="modal">
+                <div class="modal2" id="modal2">
                     <div class="modal-content">
-                        <span class="close" id="close" onclick="closeReviews()">
+                        <span class="close2" id="close2" onclick="closeReviews2()">
                             <i class="fa fa-times" aria-hidden="true" style="color: #f00"></i>
                         </span>
                         <form class="review-form" role="form">
@@ -306,7 +306,7 @@ function showUserInfo(userID, name, lastname)
 function evaluateSubmit()
 {
     const evaluateForm = document.querySelector('.review-form')
-    const modal = document.getElementById("modal")
+    const modal = document.getElementById("modal2")
     fetch('../controller/controller.php', {
         method:'POST',
         body:new FormData(evaluateForm)
@@ -343,7 +343,7 @@ function evaluateUser(userID)
         if(userID == getCookie("id")) return;
     } else return;
     console.log("cauko")
-    const modal = document.getElementById("modal");
+    const modal = document.getElementById("modal2");
     modal.style.display = "block";
 }
 
@@ -359,11 +359,95 @@ function closeReviews()
 
 /**
  * @author Petr Kolarik
+ * Close reviews after click cross
+ */
+ function closeReviews2()
+ {
+     const modal = document.getElementById("modal2");
+     modal.style.display = "none";
+ }
+
+/**
+ * @author Petr Kolarik
  * Close reviews after clicking outside
  */
 window.onclick = function(event) {
     const modal = document.getElementById("modal");
+    const modal2 = document.getElementById("modal2")
     if (event.target == modal) {
         modal.style.display = "none";
+    } else if (event.target == modal2) {
+        modal2.style.display = "none";
     }
-  } 
+
+  }
+
+  /**
+ * @author Petr Kolarik
+ * // !!!!! Review section !!!!!! \\
+ */
+
+// Function to show modal with user reviews
+function showReviews()
+{
+    modal.style.display = "block";
+
+    const table = document.createElement("table");
+    const tbody = document.createElement("tbody");
+    const root = document.getElementById("block-content");
+
+    table.setAttribute("class", "reviewTable");
+    fetch(`../controller/controller.php?id_uziv_rec=${getCookie("id")}`)
+    .then(res=>res.json())
+    .then(data=>{
+        if (!data) {
+            return;
+        }
+
+        for (var review of data) {
+            var div = document.createElement("div");
+            div.setAttribute("class", "reviewDiv");
+            var tr1 = document.createElement("tr");
+            var td_jmeno = document.createElement("td");
+            td_jmeno.setAttribute("class", "nameCell");
+            td_jmeno.appendChild(document.createTextNode(review.jmeno + " "));
+            td_jmeno.appendChild(document.createTextNode(review.prijmeni));
+            tr1.appendChild(td_jmeno);
+            var td_popis = document.createElement("td");
+            td_popis.setAttribute("class", "descCell");
+            td_popis.setAttribute("colspan", "2");
+            td_popis.appendChild(document.createTextNode(review.popis));
+            tr1.appendChild(td_popis);
+            div.appendChild(tr1);
+            tbody.appendChild(div);
+
+            var tr2 = document.createElement("tr");
+
+            var td_pocet_hvezd = document.createElement("td");
+            for (let i = 0; i < review.pocet_hvezd; i++) {
+                var star = document.createElement("span");
+                star.setAttribute("class", "fa fa-star fa-1x full");
+                td_pocet_hvezd.appendChild(star);
+            }
+            for (let i = 0; i < (5 - review.pocet_hvezd); i++) {
+                var star = document.createElement("span");
+                star.setAttribute("class", "fa fa-star fa-1x");
+                td_pocet_hvezd.appendChild(star);
+            }
+            tr2.appendChild(td_pocet_hvezd);
+
+            var td_datum = document.createElement("td");
+            td_datum.appendChild(document.createTextNode(review.datum_vytvoreni));
+            tr2.appendChild(td_datum);
+            var td_nadpis = document.createElement("td");
+            td_nadpis.setAttribute("class", "headlineCell");
+            td_nadpis.appendChild(document.createTextNode("Inzerát: " + review.nadpis));
+            tr2.appendChild(td_nadpis);
+            div.appendChild(tr2);
+            tbody.appendChild(div);
+        };
+        table.appendChild(tbody);
+        root.appendChild(table);
+    })
+    root.replaceChildren('');
+}
