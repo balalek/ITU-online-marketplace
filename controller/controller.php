@@ -185,6 +185,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['review']))
     echo json_encode($result);
 }
 
+// /**
+//  * @author Petr Kolarik
+//  * Get review count
+//  */
+// if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_uziv_rec']))
+// {
+//     $reviewCount = reviewCount($_GET['id_uziv_rec']);
+//     echo json_encode($reviewCount);
+// }
+
 /**
  * @author Martin Balaz
  * Create advertisement

@@ -179,7 +179,6 @@ a{
     bottom: 0;
     width: 100%;
     text-align: center;
-    margin-bottom: 10px;
     display: none;
 }
 .preview-images-zone > .preview-image > .image-cancel {
@@ -351,7 +350,6 @@ a{
 
 .reviewDiv{
     background-color: rgb(240, 238, 238);
-    margin-bottom: 10px;
     border-radius: 7px;
 }
 
@@ -407,4 +405,12 @@ td{
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
+}
+
+#profileReview{
+    background-color: rgb(240, 238, 238);
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 2px;
+    margin: 1%;
 }

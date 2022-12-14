@@ -86,8 +86,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 /**
  * @author Petr Kolarik
- * Function to show popup window with user reviews
+ * // !!!!! Review section !!!!!! \\
  */
+
+// Function to show modal with user reviews
 function showReviews()
 {
     modal.style.display = "block";
@@ -122,9 +124,20 @@ function showReviews()
             tbody.appendChild(div);
 
             var tr2 = document.createElement("tr");
+
             var td_pocet_hvezd = document.createElement("td");
-            td_pocet_hvezd.appendChild(document.createTextNode(review.pocet_hvezd));
+            for (let i = 0; i < review.pocet_hvezd; i++) {
+                var star = document.createElement("span");
+                star.setAttribute("class", "fa fa-star fa-1x full");
+                td_pocet_hvezd.appendChild(star);
+            }
+            for (let i = 0; i < (5 - review.pocet_hvezd); i++) {
+                var star = document.createElement("span");
+                star.setAttribute("class", "fa fa-star fa-1x");
+                td_pocet_hvezd.appendChild(star);
+            }
             tr2.appendChild(td_pocet_hvezd);
+
             var td_datum = document.createElement("td");
             td_datum.appendChild(document.createTextNode(review.datum_vytvoreni));
             tr2.appendChild(td_datum);
@@ -159,6 +172,16 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
   } 
+
+// // Show count of reviews
+// function reviewCount()
+// {
+//     fetch(`../controller/controller.php?id_uziv_rec=${getCookie("id")}`)
+//     .then(res=>res.json())
+//     .then(data=>{
+//         console.log(data[0]);
+//     })
+// }
 
 /**
  * @author Martin Balaz
