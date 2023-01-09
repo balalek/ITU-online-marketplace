@@ -99,7 +99,7 @@ if(params != null)
                                         </div>
                                         <div class="m-2 d-flex justify-content-center" id="num-of-revs">Počet hodnocení: 4</div>
                                         <div class="m-2 d-flex justify-content-center" id="reviews">
-                                            <button type="submit" class="btn btn-primary" onclick="showReviews()">Zobrazit vše</button>
+                                            <button type="submit" class="btn btn-primary" onclick="showReviews(${id})">Zobrazit vše</button>
                                             <div class="modal" id="modal">
                                                 <div class="modal-content">
                                                     <div>
@@ -388,7 +388,7 @@ window.onclick = function(event) {
  */
 
 // Function to show modal with user reviews
-function showReviews()
+function showReviews(id = getCookie("id"))
 {
     modal.style.display = "block";
 
@@ -397,7 +397,7 @@ function showReviews()
     const root = document.getElementById("block-content");
 
     table.setAttribute("class", "reviewTable");
-    fetch(`../controller/controller.php?id_uziv_rec=${getCookie("id")}`)
+    fetch(`../controller/controller.php?id_uziv_rec=${id}`)
     .then(res=>res.json())
     .then(data=>{
         if (!data) {

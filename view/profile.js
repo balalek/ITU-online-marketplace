@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
  */
 
 // Function to show modal with user reviews
-function showReviews()
+function showReviews(id = getCookie("id"))
 {
     modal.style.display = "block";
 
@@ -99,7 +99,7 @@ function showReviews()
     const root = document.getElementById("block-content");
 
     table.setAttribute("class", "reviewTable");
-    fetch(`../controller/controller.php?id_uziv_rec=${getCookie("id")}`)
+    fetch(`../controller/controller.php?id_uziv_rec=${id}`)
     .then(res=>res.json())
     .then(data=>{
         if (!data) {
